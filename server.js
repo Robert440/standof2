@@ -4,6 +4,11 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
+// Главная страница
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
