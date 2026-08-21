@@ -1,0 +1,24 @@
+{
+  "name": "standoff-phish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robert440/standoff-phish.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Robert440/standoff-phish/issues"
+  },
+  "homepage": "https://github.com/Robert440/standoff-phish#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
