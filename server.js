@@ -4,8 +4,8 @@ const path = require('path');
 const app = express();
 
 // ===== НАСТРОЙКИ АДМИНКИ =====
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'standoff2026'; // ← поменяй на свой!
+const ADMIN_USER = 'Богдан';
+const ADMIN_PASS = '2282'; // ← поменяй на свой!
 
 app.use(express.json());
 
