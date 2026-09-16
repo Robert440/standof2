@@ -1,18 +1,12 @@
 {
   "name": "standoff-phish",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "express": "^4.21.2",
-    "sqlite3": "^5.1.7"
+    "node-telegram-bot-api": "^0.66.0"
   }
 }
