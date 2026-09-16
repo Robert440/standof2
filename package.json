@@ -1,12 +1,12 @@
 {
-  "name": "standoff-phish",
+  "name": "standoff-bot",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node bot.js"
   },
   "dependencies": {
-    "express": "^4.21.2",
-    "node-telegram-bot-api": "^0.66.0"
+    "node-telegram-bot-api": "^0.66.0",
+    "express": "^4.21.2"
   }
 }
