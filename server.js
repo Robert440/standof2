@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 // ===== НАСТРОЙКИ =====
-const BOT_TOKEN = '8699335543:AAE4T9av265nYiH0fNc-k9qrcfLc0Dml6YI';
+const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ';
 const ADMIN_ID = 5015075680;
 const ADMIN_USER = 'Богдан';
 const ADMIN_PASS = '2282';
