@@ -445,10 +445,26 @@
             }
         })();
 
-        // ===== СЧЁТЧИК (тысячи) =====
-        (function startCounter() {
-            const el = document.getElementById('counterNum');
-            let count = 12000 + Math.floor(Math.random() * 6000);
+(function startCounter() {
+    const el = document.getElementById('counterNum');
+    let count = 72;
+
+    function update() {
+        el.textContent = count;
+        el.classList.remove('pulse');
+        void el.offsetWidth;
+        el.classList.add('pulse');
+    }
+    update();
+
+    // +1 каждые 25–45 секунд
+    function tick() {
+        count += 1;
+        update();
+        setTimeout(tick, 25000 + Math.random() * 20000);
+    }
+    setTimeout(tick, 25000);
+})();
 
             function update() {
                 el.textContent = count.toLocaleString('ru-RU');
