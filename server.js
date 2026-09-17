@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 // ===== НАСТРОЙКИ =====
-const BOT_TOKEN = 'ВСТАВЬ_СЮДА_СВОЙ_ТОКЕН_ОТ_BOTFATHER';
+const BOT_TOKEN = '8699335543:AAHUe_Ht9gCNI7cnBa3l6jvp315xTQKv0LQ';
 const ADMIN_ID = 5015075680;
 
 // ===== ХРАНИЛИЩЕ В ПАМЯТИ =====
